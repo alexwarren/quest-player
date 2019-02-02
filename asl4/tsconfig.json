@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "removeComments": true,
+        "target": "es6"
+    },
+    "files": [
+        "asl4.ts"
+    ]
+}

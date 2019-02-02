@@ -1,0 +1,7 @@
+asl4.js
+.vs/
+node_modules/
+dist/
+*.user
+*.map
+QuestPlayer-win32-ia32/

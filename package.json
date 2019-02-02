@@ -1,0 +1,31 @@
+{
+  "name": "quest-player",
+  "version": "6.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "web": "webpack-dev-server --content-base dist/",
+    "lint": "eslint"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/textadventures/quest.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-polyfill": "^6.7.2",
+    "electron-prebuilt": "^0.36.2",
+    "eslint": "^2.4.0",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-typescript": "^2.9.2",
+    "gulp-uglify": "^1.4.0",
+    "requirejs": "^2.1.22",
+    "source-map-loader": "^0.1.5",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-stream": "^3.1.0"
+  }
+}
