@@ -1,18 +1,12 @@
-Quest 6
-=======
+Quest Player
+============
 
-Quest 6 is under development.
+A cross-platform player for [Quest](http://textadventures.co.uk/quest/) games. Under development.
 
-Building Quest 6:
+Building Quest Player:
 - `npm install`
 - `gulp asl4`
 - `gulp`
 - `npm run web`
 
 Now navigate to `http://localhost:8080/?file=blank.aslx`
-
-Documentation
--------------
-
-* [Documentation](http://docs.textadventures.co.uk/quest)
-* [Quest website](http://textadventures.co.uk/quest/)
