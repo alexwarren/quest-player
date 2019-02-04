@@ -6,7 +6,9 @@
   "scripts": {
     "start": "electron .",
     "web": "webpack-dev-server --content-base dist/",
-    "lint": "eslint"
+    "lint": "eslint",
+    "build-asl4": "gulp asl4",
+    "build": "gulp"
   },
   "license": "MIT",
   "repository": {
@@ -20,6 +22,7 @@
     "eslint": "^2.4.0",
     "gulp": "^3.9.0",
     "gulp-babel": "^5.2.1",
+    "gulp-cli": "^1.4.0",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-typescript": "^2.9.2",
     "gulp-uglify": "^1.4.0",
