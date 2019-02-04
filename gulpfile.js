@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var sourcemaps = require('gulp-sourcemaps');  
 var ts = require('gulp-typescript');  
 var babel = require('gulp-babel');
-//var uglify = require('gulp-uglify');
 var webpack = require('webpack-stream');
 
 gulp.task('asl4', function () {
