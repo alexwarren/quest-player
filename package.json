@@ -22,7 +22,7 @@
     "eslint": "^2.4.0",
     "gulp": "^4.0.0",
     "gulp-babel": "^5.2.1",
-    "gulp-cli": "^1.4.0",
+    "gulp-cli": "^2.0.1",
     "gulp-sourcemaps": "^1.5.2",
     "gulp-typescript": "^2.9.2",
     "gulp-uglify": "^1.4.0",
