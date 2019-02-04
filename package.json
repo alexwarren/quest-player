@@ -20,7 +20,7 @@
     "babel-polyfill": "^6.7.2",
     "electron-prebuilt": "^0.36.2",
     "eslint": "^2.4.0",
-    "gulp": "^3.9.0",
+    "gulp": "^4.0.0",
     "gulp-babel": "^5.2.1",
     "gulp-cli": "^1.4.0",
     "gulp-sourcemaps": "^1.5.2",

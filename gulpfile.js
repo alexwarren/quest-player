@@ -42,4 +42,4 @@ gulp.task('files', function () {
     ]).pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', ['lib', 'ui', 'files']);
+gulp.task('default', gulp.series('lib', 'ui', 'files'));
