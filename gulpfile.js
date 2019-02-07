@@ -9,9 +9,8 @@ gulp.task('asl4', function () {
       
     return gulp.src('asl4/asl4.ts')
         .pipe(sourcemaps.init())
-        .pipe(ts(tsProject))
+        .pipe(tsProject())
         .pipe(babel())
-        //.pipe(uglify())
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest('.'));
 });
