@@ -29,17 +29,17 @@ const attributeLoaders = {
         const list = state.newAttribute('stringlist');
         for (let i = 0; i < node.childNodes.length; i++) {
             const childNode = node.childNodes[i];
-            if (childNode.nodeName != 'value') continue;
+            if (childNode.nodeName !== 'value') continue;
             list.value.push(childNode.textContent);
         }
         state.set(element, attributeName, list);
     },
     'boolean': function (node, element, attributeName) {
         const attributeValue = node.textContent;
-        if (attributeValue === '' || attributeValue == 'true') {
+        if (attributeValue === '' || attributeValue === 'true') {
             state.set(element, attributeName, true);
         }
-        else if (attributeValue == 'false') {
+        else if (attributeValue === 'false') {
             state.set(element, attributeName, false);
         }
         else {
@@ -63,16 +63,16 @@ const loadElementAttributes = function (element, nodes) {
         const node = nodes[i];
         if (node.nodeType !== 1) continue;
         let attributeName = node.nodeName;
-        if (attributeName == 'inherit') {
+        if (attributeName === 'inherit') {
             const name = getXmlAttribute(node, 'name');
             state.addInheritedType(element, name);
         }
-        else if (attributeName == 'object' || attributeName == 'command') {
+        else if (attributeName === 'object' || attributeName === 'command') {
             const child = elementLoaders[attributeName](node);
             state.set(child, 'parent', element);
         }
         else {
-            if (attributeName == 'attr') {
+            if (attributeName === 'attr') {
                 attributeName = getXmlAttribute(node, 'name');
             }
             let attributeType = getXmlAttribute(node, 'type');

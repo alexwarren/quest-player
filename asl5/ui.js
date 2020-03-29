@@ -62,10 +62,10 @@ const updateCompassDirections = function (listData) {
 };
 
 const playSound = function (filename, synchronous, looped) {
-    if (filename.toLowerCase().substr(-4) == '.mp3') {
+    if (filename.toLowerCase().substr(-4) === '.mp3') {
         playMp3(filename, synchronous, looped);
     }
-    else if (filename.toLowerCase().substr(-4) == '.wav') {
+    else if (filename.toLowerCase().substr(-4) === '.wav') {
         playWav(filename, synchronous, looped);
     }
 };

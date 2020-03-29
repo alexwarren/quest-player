@@ -29,6 +29,11 @@ module.exports = {
         "no-console": "off",
         "prefer-arrow-callback": "error",
         "no-var": "error",
-        "prefer-const": "error"
+        "prefer-const": "error",
+        "eqeqeq": [
+            "error",
+            "always",
+            { "null": "ignore" }
+        ]
     }
 };

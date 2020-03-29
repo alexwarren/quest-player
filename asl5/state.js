@@ -33,14 +33,14 @@ const finishedLoading = function () {
 };
 
 const newAttribute = function (type) {
-    if (type == 'stringlist' || type == 'objectlist' || type == 'list') {
+    if (type === 'stringlist' || type === 'objectlist' || type === 'list') {
         return {
             value: [],
             type: type
         };
     }
     
-    if (type == 'stringdictionary' || type == 'objectdictionary' || type == 'scriptdictionary' || type == 'dictionary') {
+    if (type === 'stringdictionary' || type === 'objectdictionary' || type === 'scriptdictionary' || type === 'dictionary') {
         return {
             value: {},
             type: type
@@ -154,8 +154,8 @@ const getAttributeOfType = function (element, attribute, type) {
 
 const isValueOfType = function (value, type) {
     const actualType = typeOf(value);
-    if (actualType == type) return true;
-    if (actualType == 'int' && type == 'double') return true;
+    if (actualType === type) return true;
+    if (actualType === 'int' && type === 'double') return true;
     return false;
 };
 
@@ -183,9 +183,9 @@ const checkIsList = function (list) {
 };
 
 const isList = function (list) {
-    return list.type == 'list' ||
-        list.type == 'stringlist' ||
-        list.type == 'objectlist';
+    return list.type === 'list' ||
+        list.type === 'stringlist' ||
+        list.type === 'objectlist';
 };
 
 const checkIsDictionary = function (dic) {
@@ -195,10 +195,10 @@ const checkIsDictionary = function (dic) {
 };
 
 const isDictionary = function (dic) {
-    return dic.type == 'stringdictionary' ||
-        dic.type == 'objectdictionary' ||
-        dic.type == 'objectlist' ||
-        dic.type == 'dictionary';
+    return dic.type === 'stringdictionary' ||
+        dic.type === 'objectdictionary' ||
+        dic.type === 'objectlist' ||
+        dic.type === 'dictionary';
 };
 
 const attributeNames = function (element, includeInheritedAttributes) {
@@ -221,7 +221,7 @@ const isElement = function (elementName) {
 
 const create = function (elementName, elementType, elementSubType) {
     const inheritedTypes = [];
-    if (elementType == 'object') {
+    if (elementType === 'object') {
         if (!elementSubType) throw 'Object must have a subtype';
         inheritedTypes.push('default' + elementSubType);
     }
@@ -256,7 +256,7 @@ const getElements = function (elementType, elementSubType) {
     const result = [];
     for (const key in elements) {
         const element = elements[key];
-        if (!elementSubType || element.elementSubType == elementSubType) {
+        if (!elementSubType || element.elementSubType === elementSubType) {
             result.push(element);
         }
     }
@@ -286,7 +286,7 @@ const getFunctionDefinition = function (functionName) {
 const getDirectChildren = function (parent, elementType, elementSubType) {
     const allElements = getElements(elementType, elementSubType);
     return allElements.filter((element) => {
-        return element.attributes.parent == parent;
+        return element.attributes.parent === parent;
     });
 };
 
@@ -302,7 +302,7 @@ const getAllChildren = function (parent, elementType, elementSubType) {
 
 const contains = function (parent, element) {
     if (!element.attributes.parent) return false;
-    if (element.attributes.parent == parent) return true;
+    if (element.attributes.parent === parent) return true;
     return contains(parent, element.attributes.parent);
 };
 

@@ -197,7 +197,7 @@ const evaluateNext = function () {
                 let index = 0;
                 const args = [];
                 const evaluateArgs = function () {
-                    if (index == tree.arguments.length) {
+                    if (index === tree.arguments.length) {
                         callFunction(tree.callee.name, args, (result) => {
                             expressionFrame.complete(result);
                         });
@@ -236,7 +236,7 @@ const evaluateNext = function () {
                 evaluateNext();
                 break;
             case 'UnaryExpression':
-                if (tree.operator == 'not') {
+                if (tree.operator === 'not') {
                     frame.expressionStack.push({
                         tree: tree.argument,
                         complete: function (result) {
@@ -245,7 +245,7 @@ const evaluateNext = function () {
                     });
                     evaluateNext();
                 }
-                else if (tree.operator == '-') {
+                else if (tree.operator === '-') {
                     frame.expressionStack.push({
                         tree: tree.argument,
                         complete: function (result) {
@@ -333,7 +333,7 @@ const callFunction = function (name, args, complete) {
         return;
     }
     
-    if (name == 'IsDefined') {
+    if (name === 'IsDefined') {
         const frame = callstack[callstack.length - 1];
         let result = false;
         if (frame.locals) result = args[0] in frame.locals;

@@ -28,7 +28,7 @@ const binaryFileFetcher = function (filename, onSuccess, onFailure) {
     xhr.open('GET', filename, true);
     xhr.responseType = 'arraybuffer';
     xhr.onload = function() {
-        if (this.status == 200) {
+        if (this.status === 200) {
             const result = new Uint8Array(this.response);
             onSuccess(result);
         }
@@ -84,10 +84,10 @@ const launchFilename = function (filename) {
     const extMatch = extRegex.exec(filename);
     if (!extMatch) return;
     const ext = extMatch[0];
-    if (ext == '.aslx') {
+    if (ext === '.aslx') {
         launchV6(filename);
     }
-    else if (ext == '.asl' || ext == '.cas') {
+    else if (ext === '.asl' || ext === '.cas') {
         launchV4(filename);
     }
 };

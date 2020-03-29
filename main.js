@@ -83,7 +83,7 @@ const init = function() {
 
 // Quit when all windows are closed, except on OS X.
 app.on('window-all-closed', () => {
-    if (process.platform != 'darwin') {
+    if (process.platform !== 'darwin') {
         app.quit();
     }
 });
@@ -163,7 +163,7 @@ const template = [
             {
                 label: 'Toggle Full Screen',
                 accelerator: (function() {
-                    if (process.platform == 'darwin') {
+                    if (process.platform === 'darwin') {
                         return 'Ctrl+Command+F';
                     }
                     else {
@@ -179,7 +179,7 @@ const template = [
             {
                 label: 'Toggle Developer Tools',
                 accelerator: (function() {
-                    if (process.platform == 'darwin') {
+                    if (process.platform === 'darwin') {
                         return 'Alt+Command+I';
                     }
                     else {
@@ -267,7 +267,7 @@ const appMenuTemplate = {
     ]
 };
 
-if (process.platform == 'darwin') {
+if (process.platform === 'darwin') {
     template.unshift(appMenuTemplate);
     // Window menu.
     template[3].submenu.push(

@@ -118,7 +118,7 @@ const functions = {
         const input = args[0];
         const joinChar = args[1];
         // TODO: Handle other types
-        if (!input.type || input.type != 'stringlist') {
+        if (!input.type || input.type !== 'stringlist') {
             throw 'Unhandled type passed to Join';
         }
         return input.value.join(joinChar);
@@ -449,7 +449,7 @@ const functions = {
         const list1 = args[0];
         const list2 = args[1];
         checkIsList(list1);
-        if (list1.type != list2.type) {
+        if (list1.type !== list2.type) {
             throw 'Mismatched list types passed to ListCombine';
         }
         const result = state.newAttribute(list1.type);
@@ -500,7 +500,7 @@ const functions = {
     },
     'GetUIOption': function (args) {
         const option = getParameter(args[0], 'GetUIOption', 'string');
-        if (option == 'UseGameColours' || option == 'UseGameFont') {
+        if (option === 'UseGameColours' || option === 'UseGameFont') {
             return 'true';
         }
         return null;
