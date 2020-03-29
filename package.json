@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "web": "webpack-dev-server",
-    "lint": "eslint",
+    "lint": "eslint './**/*.js'",
     "build-asl4": "gulp asl4",
     "build": "gulp"
   },
@@ -19,7 +19,7 @@
   "devDependencies": {
     "babel-polyfill": "^6.7.2",
     "electron-prebuilt": "^0.36.2",
-    "eslint": "^5.13.0",
+    "eslint": "^6.8.0",
     "gulp": "^4.0.0",
     "gulp-babel": "^5.2.1",
     "gulp-cli": "^2.0.1",
