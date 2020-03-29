@@ -1,21 +1,21 @@
 /* global $, quest, apiRoot, $_GET, onLoadDesktop */
 
 require('babel-polyfill');
-var asl5 = require('./asl5/asl5.js');
+const asl5 = require('./asl5/asl5.js');
 
 window.quest = window.quest || {};
 
-var paperScript = document.createElement('script');
+const paperScript = document.createElement('script');
 paperScript.setAttribute('src', 'ui/grid.js');
 paperScript.setAttribute('type', 'text/paperscript');
 paperScript.setAttribute('canvas', 'gridCanvas');
 document.head.appendChild(paperScript);
 
-var paperJs = document.createElement('script');
+const paperJs = document.createElement('script');
 paperJs.setAttribute('src', 'ui/paper.js');
 document.head.appendChild(paperJs);
 
-var fileFetcher = function (filename, onSuccess, onFailure) {
+const fileFetcher = function (filename, onSuccess, onFailure) {
     $.ajax({
         url: filename,
         success: onSuccess,
@@ -23,13 +23,13 @@ var fileFetcher = function (filename, onSuccess, onFailure) {
     });
 };
 
-var binaryFileFetcher = function (filename, onSuccess, onFailure) {
-    var xhr = new XMLHttpRequest();
+const binaryFileFetcher = function (filename, onSuccess, onFailure) {
+    const xhr = new XMLHttpRequest();
     xhr.open('GET', filename, true);
     xhr.responseType = 'arraybuffer';
     xhr.onload = function() {
         if (this.status == 200) {
-            var result = new Uint8Array(this.response);
+            const result = new Uint8Array(this.response);
             onSuccess(result);
         }
         else {
@@ -39,7 +39,7 @@ var binaryFileFetcher = function (filename, onSuccess, onFailure) {
     xhr.send();
 };
 
-var checkCanSave = function () {
+const checkCanSave = function () {
     $.ajax({
         url: apiRoot + 'games/cansave',
         success: function (result) {
@@ -53,13 +53,13 @@ var checkCanSave = function () {
     });
 };
 
-var launchV4 = function (url, resourceRoot, resumeData) {
-    var asl4 = require('./asl4/asl4.js');
-    var game = asl4.createGame(url, url, resumeData, fileFetcher, binaryFileFetcher, resourceRoot);
-    var onSuccess = function () {
+const launchV4 = function (url, resourceRoot, resumeData) {
+    const asl4 = require('./asl4/asl4.js');
+    const game = asl4.createGame(url, url, resumeData, fileFetcher, binaryFileFetcher, resourceRoot);
+    const onSuccess = function () {
         game.Begin();
     };
-    var onFailure = function () {
+    const onFailure = function () {
         console.log('fail');
     };
     quest.sendCommand = game.SendCommand.bind(game);
@@ -71,7 +71,7 @@ var launchV4 = function (url, resourceRoot, resumeData) {
     game.Initialise(onSuccess, onFailure);
 };
 
-var launchV6 = function (url) {
+const launchV6 = function (url) {
     $.get(url, (data) => {
         quest.sendCommand = asl5.sendCommand;
         asl5.load(data);
@@ -79,11 +79,11 @@ var launchV6 = function (url) {
     });
 };
 
-var launchFilename = function (filename) {
-    var extRegex = /\.[0-9a-z]+$/i;
-    var extMatch = extRegex.exec(filename);
+const launchFilename = function (filename) {
+    const extRegex = /\.[0-9a-z]+$/i;
+    const extMatch = extRegex.exec(filename);
     if (!extMatch) return;
-    var ext = extMatch[0];
+    const ext = extMatch[0];
     if (ext == '.aslx') {
         launchV6(filename);
     }
@@ -92,11 +92,11 @@ var launchFilename = function (filename) {
     }
 };
 
-var onLoadWeb = function () {
-    var id = $_GET['id'];
-    var resume = $_GET['resume'];
+const onLoadWeb = function () {
+    const id = $_GET['id'];
+    const resume = $_GET['resume'];
     
-    var filename = $_GET['file'];
+    const filename = $_GET['file'];
     
     if (filename) {
         launchFilename(filename);
@@ -105,7 +105,7 @@ var onLoadWeb = function () {
     
     if (!id) return;
     
-    var load = function () {
+    const load = function () {
         $.get('http://textadventures.co.uk/api/game/' + id, (result) => {
             checkCanSave();
             
@@ -119,7 +119,7 @@ var onLoadWeb = function () {
         });
     };
     
-    var resumeData = null;
+    let resumeData = null;
     
     if (!resume) {
         load();

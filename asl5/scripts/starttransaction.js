@@ -1,4 +1,4 @@
-var scriptrunner = require('../scriptrunner.js');
+const scriptrunner = require('../scriptrunner.js');
 
 module.exports = {
     parameters: [1],

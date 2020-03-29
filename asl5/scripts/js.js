@@ -1,11 +1,11 @@
-var scriptrunner = require('../scriptrunner.js');
-var scriptParser = require('../scriptparser.js');
+const scriptrunner = require('../scriptrunner.js');
+const scriptParser = require('../scriptparser.js');
 
 module.exports = {
     create: function (line) {
-        var scripts = require('../scripts.js');
-        var parameters = scripts.parseParameters(scriptParser.getAndSplitParameters(line));
-        var jsFunction = line.match(/^JS\.([\w.@]*)/)[1];
+        const scripts = require('../scripts.js');
+        const parameters = scripts.parseParameters(scriptParser.getAndSplitParameters(line));
+        const jsFunction = line.match(/^JS\.([\w.@]*)/)[1];
 
         return {
             arguments: parameters,
@@ -14,7 +14,7 @@ module.exports = {
     },
     execute: function (ctx) {
         scriptrunner.evaluateExpressions(ctx.parameters.arguments, (results) => {
-            var fn = window[ctx.parameters.jsFunction];
+            const fn = window[ctx.parameters.jsFunction];
             fn.apply(window, results);
             ctx.complete();
         });

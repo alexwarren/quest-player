@@ -1,23 +1,23 @@
-var scriptrunner = require('../scriptrunner.js');
-var scriptParser = require('../scriptparser.js');
-var expressions = require('../expressions.js');
+const scriptrunner = require('../scriptrunner.js');
+const scriptParser = require('../scriptparser.js');
+const expressions = require('../expressions.js');
 
 module.exports = {
     create: function (line) {
-        var scripts = require('../scripts.js');
-        var parameters = scriptParser.getParameterInternal(line, '(', ')');
-        var cases = scriptParser.getScriptLine(parameters.after).line;
+        const scripts = require('../scripts.js');
+        const parameters = scriptParser.getParameterInternal(line, '(', ')');
+        let cases = scriptParser.getScriptLine(parameters.after).line;
 
-        var finished = false;
-        var result = [];
-        var defaultScript = null;
+        let finished = false;
+        let result = [];
+        let defaultScript = null;
         cases = scriptParser.removeSurroundingBraces(cases);
 
         while (!finished)
         {
-            var scriptLine = scriptParser.getScriptLine(cases);
+            const scriptLine = scriptParser.getScriptLine(cases);
             cases = scriptLine.line;
-            var remainingCases = scriptLine.after;
+            const remainingCases = scriptLine.after;
 
             if (cases) cases = cases.trim();
 
@@ -25,13 +25,13 @@ module.exports = {
             {
                 if (cases.indexOf('case') === 0)
                 {
-                    var caseParameter = scriptParser.getParameterInternal(cases, '(', ')');
-                    var expr = caseParameter.parameter;
-                    var afterExpr = caseParameter.after;
-                    var caseScript = scriptParser.getScriptLine(afterExpr).line;
-                    var script = scripts.parseScript(caseScript);
+                    const caseParameter = scriptParser.getParameterInternal(cases, '(', ')');
+                    const expr = caseParameter.parameter;
+                    const afterExpr = caseParameter.after;
+                    const caseScript = scriptParser.getScriptLine(afterExpr).line;
+                    const script = scripts.parseScript(caseScript);
 
-                    var matchList = scriptParser.splitParameters(expr);
+                    const matchList = scriptParser.splitParameters(expr);
                     result = result.concat(matchList.map((match) => {
                         return {
                             expr: expressions.parseExpression(match),
@@ -59,8 +59,8 @@ module.exports = {
     },
     execute: function (ctx) {
         scriptrunner.evaluateExpression(ctx.parameters.expression, (result) => {            
-            var index = 0;
-            var evaluateCase = function () {
+            let index = 0;
+            const evaluateCase = function () {
                 scriptrunner.evaluateExpression(ctx.parameters.cases[index].expr, (caseResult) => {
                     if (result.toString() === caseResult.toString()) {
                         scriptrunner.getCallstack().push({

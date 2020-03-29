@@ -1,25 +1,25 @@
-var state = require('./state.js');
-var scriptrunner = require('./scriptrunner.js');
+const state = require('./state.js');
+const scriptrunner = require('./scriptrunner.js');
 
-var runDelegate = function (args, complete) {
-    var element = args[0];
-    var delName = args[1];
-    var impl = state.getAttributeOfType(element, delName, 'delegateimplementation');
+const runDelegate = function (args, complete) {
+    const element = args[0];
+    const delName = args[1];
+    const impl = state.getAttributeOfType(element, delName, 'delegateimplementation');
     if (!impl) {
         throw 'Object "' + element.name + '" has no delegate implementation "' + delName + '"';
     }
 
-    var delegateDefinition = state.getElement(impl.delegateType);
-    var script = impl.script;
+    const delegateDefinition = state.getElement(impl.delegateType);
+    const script = impl.script;
     if (!script) {
         complete();
         return;
     }
     
-    var locals = {};
+    const locals = {};
     if (args.length > 2) {
-        var paramNames = state.getAttributeOfType(delegateDefinition, 'paramnames', 'stringlist');
-        for (var i = 0; i < paramNames.value.length; i++) {
+        const paramNames = state.getAttributeOfType(delegateDefinition, 'paramnames', 'stringlist');
+        for (let i = 0; i < paramNames.value.length; i++) {
             locals[paramNames.value[i]] = args[2 + i];
         }
     }

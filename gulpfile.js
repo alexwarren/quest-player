@@ -1,11 +1,11 @@
-var gulp = require('gulp');  
-var sourcemaps = require('gulp-sourcemaps');  
-var ts = require('gulp-typescript');  
-var babel = require('gulp-babel');
-var webpack = require('webpack-stream');
+const gulp = require('gulp');  
+const sourcemaps = require('gulp-sourcemaps');  
+const ts = require('gulp-typescript');  
+const babel = require('gulp-babel');
+const webpack = require('webpack-stream');
 
 gulp.task('asl4', () => {
-    var tsProject = ts.createProject('asl4/tsconfig.json');
+    const tsProject = ts.createProject('asl4/tsconfig.json');
       
     return gulp.src('asl4/asl4.ts')
         .pipe(sourcemaps.init())

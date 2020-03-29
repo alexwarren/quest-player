@@ -6,7 +6,7 @@ const storage = require('./storage');
 
 //var argv = process.argv;
 
-var openFile;
+let openFile;
 
 if (process.platform !== 'darwin' && process.argv[1] !== '.') {
     openFile = process.argv[1];
@@ -24,10 +24,10 @@ app.on('open-file', (event /*, path */) => {
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
-var mainWindow = null;
+let mainWindow = null;
 
-var init = function() {
-    var lastWindowState = storage.get('lastWindowState');
+const init = function() {
+    let lastWindowState = storage.get('lastWindowState');
     if (lastWindowState === null) {
         lastWindowState = {
             width: 1200,
@@ -58,7 +58,7 @@ var init = function() {
     }
     
     mainWindow.on('close', () => {
-        var bounds = mainWindow.getBounds(); 
+        const bounds = mainWindow.getBounds(); 
         storage.set('lastWindowState', {
             x: bounds.x,
             y: bounds.y,
@@ -76,8 +76,8 @@ var init = function() {
         mainWindow = null;
     });
     
-    var Menu = require('electron').Menu;
-    var menu = Menu.buildFromTemplate(template);
+    const Menu = require('electron').Menu;
+    const menu = Menu.buildFromTemplate(template);
     Menu.setApplicationMenu(menu);
 };
 
@@ -95,8 +95,8 @@ app.on('activate-with-no-open-windows', init);
 // initialization and ready for creating browser windows.
 app.on('ready', init);
 
-var fileOpen = function () {
-    var result = dialog.showOpenDialog({
+const fileOpen = function () {
+    const result = dialog.showOpenDialog({
         filters: [
             { name: 'Quest games', extensions: ['aslx', 'asl', 'cas'] }
         ]
@@ -108,7 +108,7 @@ var fileOpen = function () {
 
 ipcMain.on('file-open', fileOpen);
 
-var template = [
+const template = [
     {
         label: 'File',
         submenu: [
@@ -222,9 +222,9 @@ var template = [
     }
 ];
 
-var name = 'Quest Player';
+const name = 'Quest Player';
 
-var appMenuTemplate = {
+const appMenuTemplate = {
     label: name,
     submenu: [
         {

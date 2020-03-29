@@ -27,8 +27,8 @@ module.exports = {
             "always"
         ],
         "no-console": "off",
-        "prefer-arrow-callback": [
-            "error"
-        ]
+        "prefer-arrow-callback": "error",
+        "no-var": "error",
+        "prefer-const": "error"
     }
 };

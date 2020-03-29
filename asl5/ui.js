@@ -30,38 +30,38 @@
 
 window.quest = window.quest || {};
 
-var state = require('./state.js');
-var scripts = require('./scripts.js');
+const state = require('./state.js');
+const scripts = require('./scripts.js');
 
-var elementMap = {
+const elementMap = {
     'Panes': '#gamePanes',
     'Location': '#location',
     'Command': '#txtCommandDiv'
 };
 
-var showHide = function (element, show) {
-    var jsElement = elementMap[element];
+const showHide = function (element, show) {
+    const jsElement = elementMap[element];
     if (!jsElement) return;
-    var uiFunction = show ? uiShow : uiHide;
+    const uiFunction = show ? uiShow : uiHide;
     uiFunction(jsElement);
 };
     
-var show = function (element) {
+const show = function (element) {
     showHide(element, true);
 };
 
-var hide = function (element) {
+const hide = function (element) {
     showHide(element, false);
 };
 
-var updateCompassDirections = function (listData) {
-    var directions = listData.map((item) => {
+const updateCompassDirections = function (listData) {
+    const directions = listData.map((item) => {
         return item.Text;
     });
     updateCompass(directions);
 };
 
-var playSound = function (filename, synchronous, looped) {
+const playSound = function (filename, synchronous, looped) {
     if (filename.toLowerCase().substr(-4) == '.mp3') {
         playMp3(filename, synchronous, looped);
     }
@@ -70,7 +70,7 @@ var playSound = function (filename, synchronous, looped) {
     }
 };
 
-var print = function (text, linebreak) {
+const print = function (text, linebreak) {
     if (state.minVersion(540) && state.functionExists('OutputText')) {
         scripts.executeScript(state.getFunction('OutputText'), {
             text: text

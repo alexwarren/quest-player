@@ -1,5 +1,5 @@
-var scriptrunner = require('../scriptrunner.js');
-var dictionaries = require('../dictionaries.js');
+const scriptrunner = require('../scriptrunner.js');
+const dictionaries = require('../dictionaries.js');
 
 module.exports = {
     parameters: [3],

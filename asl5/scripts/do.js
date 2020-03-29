@@ -1,16 +1,16 @@
-var scriptrunner = require('../scriptrunner.js');
-var state = require('../state.js');
+const scriptrunner = require('../scriptrunner.js');
+const state = require('../state.js');
 
 module.exports = {
     parameters: [2, 3],
     execute: function (ctx) {
         scriptrunner.evaluateExpressions(ctx.parameters, (result) => {
-            var script = state.getAttributeOfType(result[0], result[1], 'script');
+            const script = state.getAttributeOfType(result[0], result[1], 'script');
             if (!script) {
                 ctx.complete();
                 return;
             }
-            var locals;
+            let locals;
             if (result[2]) {
                 state.checkIsDictionary(result[2]);
                 locals = result[2].value;

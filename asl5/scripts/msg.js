@@ -1,5 +1,5 @@
-var ui = require('../ui.js');
-var scriptrunner = require('../scriptrunner.js');
+const ui = require('../ui.js');
+const scriptrunner = require('../scriptrunner.js');
 
 module.exports = {
     parameters: [1],

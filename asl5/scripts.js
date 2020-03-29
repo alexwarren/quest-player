@@ -1,8 +1,8 @@
-var expressions = require('./expressions.js');
-var scriptParser = require('./scriptparser.js');
-var scriptRunner = require('./scriptrunner.js');
+const expressions = require('./expressions.js');
+const scriptParser = require('./scriptparser.js');
+const scriptRunner = require('./scriptrunner.js');
 
-var commands = {
+const commands = {
     '=': require('./scripts/set'),
     '=>': require('./scripts/setscript'),
     'dictionary add': require('./scripts/dictionaryadd'),
@@ -23,13 +23,13 @@ var commands = {
     'switch': require('./scripts/switch')
 };
 
-var getSetScript = function (line) {
+const getSetScript = function (line) {
     // based on SetScriptConstuctor
     
-    var isScript = false;
+    let isScript = false;
     
-    var obscuredScript = scriptParser.obscureStrings(line);
-    var bracePos = obscuredScript.indexOf('{');
+    let obscuredScript = scriptParser.obscureStrings(line);
+    const bracePos = obscuredScript.indexOf('{');
     if (bracePos !== - 1) {
         // only want to look for = and => before any other scripts which may
         // be defined on the same line, for example procedure calls of type
@@ -38,7 +38,7 @@ var getSetScript = function (line) {
         obscuredScript = obscuredScript.substring(0, bracePos);
     }
     
-    var eqPos = obscuredScript.indexOf('=>');
+    let eqPos = obscuredScript.indexOf('=>');
     if (eqPos !== -1) {
         isScript = true;
     }
@@ -48,14 +48,14 @@ var getSetScript = function (line) {
     
     if (eqPos === -1) return null;
     
-    var keyword = isScript ? '=>' : '=';
-    var appliesTo = line.substr(0, eqPos).trim();
-    var lastDot = appliesTo.lastIndexOf('.');
+    const keyword = isScript ? '=>' : '=';
+    const appliesTo = line.substr(0, eqPos).trim();
+    const lastDot = appliesTo.lastIndexOf('.');
     
-    var elementExpr = lastDot === - 1 ? null : appliesTo.substr(0, lastDot);
-    var variable = lastDot === -1 ? appliesTo : appliesTo.substr(lastDot + 1);
+    const elementExpr = lastDot === - 1 ? null : appliesTo.substr(0, lastDot);
+    const variable = lastDot === -1 ? appliesTo : appliesTo.substr(lastDot + 1);
     
-    var value;
+    let value;
     if (isScript) {
         value = parseScript(line.substr(eqPos + 2).trim());
     }
@@ -74,12 +74,12 @@ var getSetScript = function (line) {
     };
 };
 
-var getFunctionCallScript = function (line) {
+const getFunctionCallScript = function (line) {
     // based on FunctionCallScriptConstructor
     
-    var paramExpressions, procName, paramScript = null;
+    let paramExpressions, procName, paramScript = null;
     
-    var param = scriptParser.getParameterInternal(line, '(', ')');        
+    const param = scriptParser.getParameterInternal(line, '(', ')');        
     
     if (param && param.after) {
         // Handle functions of the form
@@ -91,7 +91,7 @@ var getFunctionCallScript = function (line) {
         procName = line;
     }
     else {
-        var parameters = scriptParser.splitParameters(param.parameter);
+        const parameters = scriptParser.splitParameters(param.parameter);
         procName = line.substr(0, line.indexOf('(')).trim();
         if (param.parameter.trim().length > 0) {
             paramExpressions = parseParameters(parameters);
@@ -101,9 +101,9 @@ var getFunctionCallScript = function (line) {
     return {
         command: {
             execute: function (ctx) {
-                var args = [];
-                var index = 0;
-                var evaluateArgs = function () {
+                const args = [];
+                let index = 0;
+                const evaluateArgs = function () {
                     if (typeof ctx.parameters.expressions === 'undefined' || index === ctx.parameters.expressions.length) {
                         if (paramScript) {
                             args.push(paramScript);
@@ -129,10 +129,10 @@ var getFunctionCallScript = function (line) {
     };
 };
 
-var getScript = function (line, lastIf) {
+const getScript = function (line, lastIf) {
     // based on WorldModel.ScriptFactory.GetScriptConstructor
 
-    var command, keyword, parameters;
+    let command, keyword, parameters;
     
     if (line.substring(0, 2) === '//') return null;
     
@@ -142,9 +142,9 @@ var getScript = function (line, lastIf) {
         }
         if (line.substring(0, 7) === 'else if') {
             if (!lastIf.elseIf) lastIf.elseIf = [];
-            var elseIfParameters = scriptParser.getParameterInternal(line, '(', ')');
-            var elseIfExpression = expressions.parseExpression(elseIfParameters.parameter);
-            var elseIfScript = parseScript(elseIfParameters.after);
+            const elseIfParameters = scriptParser.getParameterInternal(line, '(', ')');
+            const elseIfExpression = expressions.parseExpression(elseIfParameters.parameter);
+            const elseIfScript = parseScript(elseIfParameters.after);
             lastIf.elseIf.push({
                 expression: elseIfExpression,
                 script: elseIfScript
@@ -156,7 +156,7 @@ var getScript = function (line, lastIf) {
         return null;
     }
 
-    for (var candidate in commands) {
+    for (const candidate in commands) {
         if (line.substring(0, candidate.length) === candidate &&
             (line.length === candidate.length || line.substr(candidate.length).match(/^\W/) || candidate === 'JS.')) {
             keyword = candidate;
@@ -167,7 +167,7 @@ var getScript = function (line, lastIf) {
     if (!command) {
         // see if it's a set script
         
-        var setScript = getSetScript(line);
+        const setScript = getSetScript(line);
         if (setScript) {
             command = setScript.command;
             keyword = setScript.keyword;
@@ -175,7 +175,7 @@ var getScript = function (line, lastIf) {
         }
         else {
             // see if it's a function call
-            var functionCall = getFunctionCallScript(line);
+            const functionCall = getFunctionCallScript(line);
             if (functionCall) {
                 command = functionCall.command;
                 parameters = functionCall.parameters;
@@ -209,18 +209,19 @@ var getScript = function (line, lastIf) {
     };
 };
 
-var parseScript = function (text) {
-    var lastIf;
+const parseScript = function (text) {
+    let lastIf;
     
     text = scriptParser.removeSurroundingBraces(text);
 
-    var result = [];
+    const result = [];
+    let scriptLine;
     do {
-        var scriptLine = scriptParser.getScriptLine(text);
+        scriptLine = scriptParser.getScriptLine(text);
 
         if (!scriptLine) break;
         if (scriptLine.line.length !== 0) {
-            var script = getScript(scriptLine.line, lastIf);
+            const script = getScript(scriptLine.line, lastIf);
             
             if (script) {
                 result.push(script);
@@ -234,7 +235,7 @@ var parseScript = function (text) {
     return result;
 };
 
-var parseParameters = function (parameters) {
+const parseParameters = function (parameters) {
     return parameters.map(expressions.parseExpression);
 };
 

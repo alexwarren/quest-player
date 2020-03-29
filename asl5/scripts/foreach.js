@@ -1,13 +1,13 @@
-var scriptrunner = require('../scriptrunner.js');
-var scriptParser = require('../scriptparser.js');
-var expressions = require('../expressions.js');
+const scriptrunner = require('../scriptrunner.js');
+const scriptParser = require('../scriptparser.js');
+const expressions = require('../expressions.js');
 
 module.exports = {
     create: function (line) {
-        var scripts = require('../scripts');
-        var parameterAndScript = scriptParser.getParameterInternal(line, '(', ')');
-        var loopScript = scripts.parseScript(parameterAndScript.after);
-        var parameters = scriptParser.splitParameters(parameterAndScript.parameter);
+        const scripts = require('../scripts');
+        const parameterAndScript = scriptParser.getParameterInternal(line, '(', ')');
+        const loopScript = scripts.parseScript(parameterAndScript.after);
+        const parameters = scriptParser.splitParameters(parameterAndScript.parameter);
         
         if (parameters.length !== 2) {
             throw '"foreach" script should have 2 parameters: ' + line;
@@ -33,7 +33,7 @@ module.exports = {
                 throw 'Unexpected "foreach" list type: ' + listResult.type;
             }
 
-            var list = listResult.value;
+            let list = listResult.value;
 
             if (listResult.type == 'stringdictionary' ||
                 listResult.type == 'objectdictionary' ||
@@ -47,11 +47,11 @@ module.exports = {
             }
             
             ctx.locals[ctx.parameters.variable] = list[0];
-            var index = 0;
+            let index = 0;
             
-            var runLoop = function () {
+            const runLoop = function () {
                 if (index < list.length) {
-                    var script = [].concat(ctx.parameters.loopScript);
+                    const script = [].concat(ctx.parameters.loopScript);
                     script.push({
                         command: {
                             execute: function () {

@@ -1,13 +1,13 @@
-var scriptrunner = require('../scriptrunner.js');
-var scriptParser = require('../scriptparser.js');
-var expressions = require('../expressions.js');
+const scriptrunner = require('../scriptrunner.js');
+const scriptParser = require('../scriptparser.js');
+const expressions = require('../expressions.js');
 
 module.exports = {
     create: function (line) {
-        var scripts = require('../scripts.js');
-        var parameterAndScript = scriptParser.getParameterInternal(line, '(', ')');
-        var loopScript = scripts.parseScript(parameterAndScript.after);
-        var parameters = scriptParser.splitParameters(parameterAndScript.parameter);
+        const scripts = require('../scripts.js');
+        const parameterAndScript = scriptParser.getParameterInternal(line, '(', ')');
+        const loopScript = scripts.parseScript(parameterAndScript.after);
+        const parameters = scriptParser.splitParameters(parameterAndScript.parameter);
         
         if (parameters.length !== 3 && parameters.length !== 4) {
             throw '"for" script should have 3 or 4 parameters: ' + line;
@@ -22,18 +22,18 @@ module.exports = {
         };
     },
     execute: function (ctx) {
-        var go = function (fromResult, toResult, stepResult) {
+        const go = function (fromResult, toResult, stepResult) {
             if (toResult < fromResult) {
                 ctx.complete();
                 return;
             }
             
             ctx.locals[ctx.parameters.variable] = fromResult;
-            var iterations = 0;
+            let iterations = 0;
             
-            var runLoop = function () {
+            const runLoop = function () {
                 if (ctx.locals[ctx.parameters.variable] <= toResult) {
-                    var script = [].concat(ctx.parameters.loopScript);
+                    const script = [].concat(ctx.parameters.loopScript);
                     script.push({
                         command: {
                             execute: function () {

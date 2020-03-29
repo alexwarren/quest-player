@@ -1,9 +1,9 @@
-var scriptrunner = require('../scriptrunner.js');
+const scriptrunner = require('../scriptrunner.js');
 
 module.exports = {
     create: function (line) {
-        var scripts = require('../scripts.js');
-        var script = scripts.parseScript(line.substr('on ready '.length));
+        const scripts = require('../scripts.js');
+        const script = scripts.parseScript(line.substr('on ready '.length));
         
         return {
             script: script

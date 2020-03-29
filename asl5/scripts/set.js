@@ -1,5 +1,5 @@
-var scriptrunner = require('../scriptrunner.js');
-var state = require('../state.js');
+const scriptrunner = require('../scriptrunner.js');
+const state = require('../state.js');
 
 module.exports = {
     execute: function (ctx) {

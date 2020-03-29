@@ -1,16 +1,16 @@
-var state = require('./state.js');
-var functions = require('./functions.js');
-var ui = require('./ui.js');
+const state = require('./state.js');
+const functions = require('./functions.js');
+const ui = require('./ui.js');
 
-var callstack = [];
-var isReady = true;
+let callstack = [];
+let isReady = true;
 
-var getCallstack = function () {
+const getCallstack = function () {
     return callstack;
 };
 
-var executeScript = function (script, locals, appendToCallstack) {
-    var frame = {
+const executeScript = function (script, locals, appendToCallstack) {
+    const frame = {
         script: script,
         index: 0,
         locals: locals || {}
@@ -30,9 +30,9 @@ var executeScript = function (script, locals, appendToCallstack) {
     continueRunningScripts();
 };
 
-var isRunning = false;
+let isRunning = false;
 
-var continueRunningScripts = function () {
+const continueRunningScripts = function () {
     isRunning = true;
     do {
         isReady = false;
@@ -41,17 +41,17 @@ var continueRunningScripts = function () {
     isRunning = false;
 };
 
-var executeNext = function () {
+const executeNext = function () {
     if (callstack.length === 0) return;
     
     // An "if" script is inside a child frame. The parent frame is the one
     // with the local variables and any "return" script.
-    var parentFrameIndex = getParentFrameIndex();
-    var parentFrame = callstack[parentFrameIndex];
-    var frame = callstack[callstack.length - 1];
+    const parentFrameIndex = getParentFrameIndex();
+    const parentFrame = callstack[parentFrameIndex];
+    const frame = callstack[callstack.length - 1];
     
-    var popCallstack = function () {
-        var framesToRemove = callstack.length - parentFrameIndex;
+    const popCallstack = function () {
+        const framesToRemove = callstack.length - parentFrameIndex;
         callstack.splice(-framesToRemove);
     };
     
@@ -67,7 +67,7 @@ var executeNext = function () {
         return;
     }
     
-    var script = frame.script[frame.index++];
+    const script = frame.script[frame.index++];
     
     script.command.execute({
         parameters: script.parameters,
@@ -88,8 +88,8 @@ var executeNext = function () {
     });
 };
 
-var getParentFrameIndex = function () {
-    var frameIndex = callstack.length - 1;
+const getParentFrameIndex = function () {
+    let frameIndex = callstack.length - 1;
     while (frameIndex >= 0) {
         if (callstack[frameIndex].locals) return frameIndex;
         frameIndex--; 
@@ -97,15 +97,15 @@ var getParentFrameIndex = function () {
     throw 'Could not find parent frame';
 };
 
-var getParentFrame = function () {
+const getParentFrame = function () {
     return callstack[getParentFrameIndex()];
 };
     
-var evaluateExpression = function (expr, complete) {
+const evaluateExpression = function (expr, complete) {
     if (!expr.tree) {
         throw 'Not an expression: ' + expr;
     }
-    var frame = callstack[callstack.length - 1];
+    const frame = callstack[callstack.length - 1];
     if (!frame.expressionStack) frame.expressionStack = [];
     frame.expressionStack.push({
         expr: expr.expr,
@@ -118,10 +118,10 @@ var evaluateExpression = function (expr, complete) {
     evaluateNext();
 };
 
-var evaluateExpressions = function (exprs, complete) {
-    var index = 0;
-    var results = [];
-    var go = function () {
+const evaluateExpressions = function (exprs, complete) {
+    let index = 0;
+    const results = [];
+    const go = function () {
         if (index === exprs.length) {
             complete(results);
         }
@@ -136,17 +136,17 @@ var evaluateExpressions = function (exprs, complete) {
     go();
 };
 
-var lastExpr = null;
+let lastExpr = null;
 
-var evaluateNext = function () {
-    var frame = callstack[callstack.length - 1];
-    var expressionFrame = frame.expressionStack.pop();
+const evaluateNext = function () {
+    const frame = callstack[callstack.length - 1];
+    const expressionFrame = frame.expressionStack.pop();
     if (!expressionFrame) {
         throw 'Expression has already been evaluated';
     }
-    var tree = expressionFrame.tree;
+    const tree = expressionFrame.tree;
     if (expressionFrame.expr) lastExpr = expressionFrame.expr;
-    var locals;
+    let locals;
     
     try {
         switch (tree.type) {
@@ -190,13 +190,13 @@ var evaluateNext = function () {
                 });
                 evaluateNext();
                 break;
-            case 'CallExpression':
+            case 'CallExpression': {
                 if (tree.callee.type !== 'Identifier') {
                     throw 'Function name must be an identifier';
                 }
-                var index = 0;
-                var args = [];
-                var evaluateArgs = function () {
+                let index = 0;
+                const args = [];
+                const evaluateArgs = function () {
                     if (index == tree.arguments.length) {
                         callFunction(tree.callee.name, args, (result) => {
                             expressionFrame.complete(result);
@@ -216,6 +216,7 @@ var evaluateNext = function () {
                 evaluateArgs();
                 
                 break;
+            }
             case 'MemberExpression':
                 if (tree.computed) {
                     throw 'Unsupported expression';
@@ -273,7 +274,7 @@ var evaluateNext = function () {
     }
 };
 
-var binaryOperator = function (operator, left, right) {
+const binaryOperator = function (operator, left, right) {
     switch (operator) {
         case '=':
             return left === right;
@@ -305,14 +306,14 @@ var binaryOperator = function (operator, left, right) {
     }
 };
 
-var callFunction = function (name, args, complete) {
-    var fn;
+const callFunction = function (name, args, complete) {
+    let fn;
     
     if (state.functionExists(name)) {
         fn = state.getFunctionDefinition(name);
-        var argumentValues = {};
+        const argumentValues = {};
         if (fn.parameters) {
-            for (var i = 0; i < fn.parameters.length; i++) {
+            for (let i = 0; i < fn.parameters.length; i++) {
                 if (i >= args.length) break;
                 argumentValues[fn.parameters[i]] = args[i];
             }
@@ -333,8 +334,8 @@ var callFunction = function (name, args, complete) {
     }
     
     if (name == 'IsDefined') {
-        var frame = callstack[callstack.length - 1];
-        var result = false;
+        const frame = callstack[callstack.length - 1];
+        let result = false;
         if (frame.locals) result = args[0] in frame.locals;
         complete(result);
         return;

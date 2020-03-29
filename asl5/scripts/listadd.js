@@ -1,5 +1,5 @@
-var scriptrunner = require('../scriptrunner.js');
-var lists = require('../lists.js');
+const scriptrunner = require('../scriptrunner.js');
+const lists = require('../lists.js');
 
 module.exports = {
     parameters: [2],

@@ -1,41 +1,41 @@
-var state = require('./state.js');
-var scripts = require('./scripts.js');
-var expressions = require('./expressions.js');
-var simplepattern = require('./simplepattern.js');
+const state = require('./state.js');
+const scripts = require('./scripts.js');
+const expressions = require('./expressions.js');
+const simplepattern = require('./simplepattern.js');
     
-var allowedVersions = [500, 510, 520, 530, 540, 550];
-var impliedTypes = {};
+const allowedVersions = [500, 510, 520, 530, 540, 550];
+const impliedTypes = {};
 
-var getXmlAttribute = function (node, attributeName) {
-    var attribute = node.attributes[attributeName];
+const getXmlAttribute = function (node, attributeName) {
+    const attribute = node.attributes[attributeName];
     if (!attribute) return null;
     return attribute.value;
 };
 
-var attributeLoaders = {
+const attributeLoaders = {
     'string': function (node, element, attributeName) {
-        var attributeValue = node.textContent; 
+        const attributeValue = node.textContent; 
         state.set(element, attributeName, attributeValue);
     },
     'int': function (node, element, attributeName) {
-        var attributeValue = node.textContent; 
+        const attributeValue = node.textContent; 
         state.set(element, attributeName, parseInt(attributeValue, 10));
     },
     'double': function (node, element, attributeName) {
-        var attributeValue = node.textContent; 
+        const attributeValue = node.textContent; 
         state.set(element, attributeName, parseFloat(attributeValue));
     },
     'stringlist': function (node, element, attributeName) {
-        var list = state.newAttribute('stringlist');
-        for (var i = 0; i < node.childNodes.length; i++) {
-            var childNode = node.childNodes[i];
+        const list = state.newAttribute('stringlist');
+        for (let i = 0; i < node.childNodes.length; i++) {
+            const childNode = node.childNodes[i];
             if (childNode.nodeName != 'value') continue;
             list.value.push(childNode.textContent);
         }
         state.set(element, attributeName, list);
     },
     'boolean': function (node, element, attributeName) {
-        var attributeValue = node.textContent;
+        const attributeValue = node.textContent;
         if (attributeValue === '' || attributeValue == 'true') {
             state.set(element, attributeName, true);
         }
@@ -47,7 +47,7 @@ var attributeLoaders = {
         }
     },
     'script': function (node, element, attributeName) {
-        var script = scripts.parseScript(node.textContent);
+        const script = scripts.parseScript(node.textContent);
         state.set(element, attributeName, {
             type: 'script',
             script: script
@@ -58,26 +58,26 @@ var attributeLoaders = {
     }
 };
 
-var loadElementAttributes = function (element, nodes) {
-    for (var i = 0; i < nodes.length; i++) {
-        var node = nodes[i];
+const loadElementAttributes = function (element, nodes) {
+    for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
         if (node.nodeType !== 1) continue;
-        var attributeName = node.nodeName;
+        let attributeName = node.nodeName;
         if (attributeName == 'inherit') {
-            var name = getXmlAttribute(node, 'name');
+            const name = getXmlAttribute(node, 'name');
             state.addInheritedType(element, name);
         }
         else if (attributeName == 'object' || attributeName == 'command') {
-            var child = elementLoaders[attributeName](node);
+            const child = elementLoaders[attributeName](node);
             state.set(child, 'parent', element);
         }
         else {
             if (attributeName == 'attr') {
                 attributeName = getXmlAttribute(node, 'name');
             }
-            var attributeType = getXmlAttribute(node, 'type');
+            let attributeType = getXmlAttribute(node, 'type');
             if (!attributeType) {
-                var key = (element.elementSubType || element.elementType) + '~' + attributeName;
+                const key = (element.elementSubType || element.elementType) + '~' + attributeName;
                 attributeType = impliedTypes[key];
                 
                 if (!attributeType) {
@@ -89,14 +89,14 @@ var loadElementAttributes = function (element, nodes) {
                     }
                 }
             }
-            var loader = attributeLoaders[attributeType];
+            const loader = attributeLoaders[attributeType];
             if (loader) {
                 loader(node, element, attributeName);
             }
             else {
-                var delegate = state.tryGetElement(attributeType);
+                const delegate = state.tryGetElement(attributeType);
                 if (delegate && delegate.elementType === 'delegate') {
-                    var script = scripts.parseScript(node.textContent);
+                    const script = scripts.parseScript(node.textContent);
                     state.set(element, attributeName, {
                         script: script,
                         type: 'delegateimplementation',
@@ -114,113 +114,113 @@ var loadElementAttributes = function (element, nodes) {
     }
 };
 
-var getParamList = function (node) {
-    var paramList;
-    var parameters = getXmlAttribute(node, 'parameters');
+const getParamList = function (node) {
+    let paramList;
+    const parameters = getXmlAttribute(node, 'parameters');
     if (parameters) {
         paramList = parameters.split(/, ?/);
     }
     return paramList;
 };
 
-var elementLoaders = {
+const elementLoaders = {
     'game': function (node) {
-        var element = state.create('game', 'object', 'game');
-        var name = getXmlAttribute(node, 'name');
+        const element = state.create('game', 'object', 'game');
+        const name = getXmlAttribute(node, 'name');
         state.set(element, 'gamename', name);
         loadElementAttributes(element, node.childNodes);
     },
     'function': function (node) {
-        var paramList = getParamList(node);
+        const paramList = getParamList(node);
         state.addFunction(getXmlAttribute(node, 'name'),
             scripts.parseScript(node.textContent),
             paramList);
     },
     'type': function (node) {
-        var name = getXmlAttribute(node, 'name');
-        var element = state.create(name, 'type');
+        const name = getXmlAttribute(node, 'name');
+        const element = state.create(name, 'type');
         loadElementAttributes(element, node.childNodes);
     },
     'object': function (node) {
-        var name = getXmlAttribute(node, 'name');
-        var element = state.create(name, 'object', 'object');
+        const name = getXmlAttribute(node, 'name');
+        const element = state.create(name, 'object', 'object');
         loadElementAttributes(element, node.childNodes);
         return element;
     },
     'command': function (node) {
-        var name = getXmlAttribute(node, 'name');
+        let name = getXmlAttribute(node, 'name');
         if (name == null) name = state.getUniqueId();
-        var element = state.create(name, 'object', 'command');
+        const element = state.create(name, 'object', 'command');
         loadElementAttributes(element, node.childNodes);
         return element;
     },
     'verb': function (node) {
         // TODO: There may be "property" and "response" attributes,
         // see ElementLoaders.cs (VerbLoader)
-        var name = getXmlAttribute(node, 'name');
+        let name = getXmlAttribute(node, 'name');
         if (name == null) name = state.getUniqueId();
-        var element = state.create(name, 'object', 'command');
+        const element = state.create(name, 'object', 'command');
         state.addInheritedType(element, 'defaultverb');
         state.set(element, 'isverb', true);
         loadElementAttributes(element, node.childNodes);
         return element;
     },
     'implied': function (node) {
-        var element = getXmlAttribute(node, 'element');
-        var attribute = getXmlAttribute(node, 'property');
-        var type = getXmlAttribute(node, 'type');
+        const element = getXmlAttribute(node, 'element');
+        const attribute = getXmlAttribute(node, 'property');
+        const type = getXmlAttribute(node, 'type');
         impliedTypes[element + '~' + attribute] = type;
     },
     'template': function (node) {
-        var name = getXmlAttribute(node, 'name');
+        const name = getXmlAttribute(node, 'name');
         //var templateType = getXmlAttribute(node, 'templatetype');
         // TODO: Template overrides - see Templates.cs (AddTemplate)
-        var elementName = state.getUniqueId('template');
-        var template = state.create(elementName, 'template');
+        const elementName = state.getUniqueId('template');
+        const template = state.create(elementName, 'template');
         state.set(template, 'templatename', name);
         state.set(template, 'text', node.textContent);
         state.addTemplate(template);
     },
     'dynamictemplate': function (node) {
-        var name = getXmlAttribute(node, 'name');
+        const name = getXmlAttribute(node, 'name');
         // TODO: Template overrides - see Templates.cs (AddDynamicTemplate)
-        var element = state.create(name, 'dynamictemplate');
-        var expr = expressions.parseExpression(node.textContent);
+        const element = state.create(name, 'dynamictemplate');
+        const expr = expressions.parseExpression(node.textContent);
         state.set(element, 'text', expr);
     },
     'delegate': function (node) {
-        var name = getXmlAttribute(node, 'name');
-        var element = state.create(name, 'delegate');
-        var paramList = getParamList(node);
+        const name = getXmlAttribute(node, 'name');
+        const element = state.create(name, 'delegate');
+        const paramList = getParamList(node);
         // Functions don't care about their return type in v6,
         // so we probably don't care about them for delegates too
         //var returnType = getXmlAttribute(node, 'type');
-        var paramListAttribute = state.newAttribute('stringlist');
+        const paramListAttribute = state.newAttribute('stringlist');
         paramListAttribute.value = paramList;
         state.set(element, 'paramnames', paramListAttribute);
     }
 };
 
-var load = function (data) {
-    var parser = new DOMParser();
-    var doc = parser.parseFromString(data, 'application/xml');
-    var firstNode = 0;
-    var i;
+const load = function (data) {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(data, 'application/xml');
+    let firstNode = 0;
+    let i;
     for (i = 0; i < doc.childNodes.length; i++) {
         if (doc.childNodes[i].nodeType === 1) {
             firstNode = i;
             break;
         }
     }
-    var asl = doc.childNodes[firstNode];
+    const asl = doc.childNodes[firstNode];
     if (asl.nodeName !== 'asl') {
         throw 'File must begin with an ASL element';
     }
-    var versionAttribute = asl.attributes.version;
+    const versionAttribute = asl.attributes.version;
     if (!versionAttribute) {
         throw 'No ASL version number found';
     }
-    var version = parseInt(versionAttribute.value);
+    const version = parseInt(versionAttribute.value);
     if (allowedVersions.indexOf(version) === -1) {
         throw 'Unrecognised ASL version number';
     }
@@ -228,7 +228,7 @@ var load = function (data) {
     
     for (i = 1; i < asl.childNodes.length; i++) {
         if (asl.childNodes[i].nodeType !== 1) continue;
-        var loader = elementLoaders[asl.childNodes[i].nodeName];
+        const loader = elementLoaders[asl.childNodes[i].nodeName];
         if (loader) {
             loader(asl.childNodes[i]);
         }

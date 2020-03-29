@@ -1,4 +1,4 @@
-var jsep = require('./lib/jsep.min.js');
+const jsep = require('./lib/jsep.min.js');
 
 jsep.removeUnaryOp('~');
 jsep.addUnaryOp('not');
@@ -23,7 +23,7 @@ jsep.removeBinaryOp('&&');
 jsep.removeBinaryOp('&');
 jsep.addBinaryOp('and', 2);
 
-var parseExpression = function (expr) {
+const parseExpression = function (expr) {
     return {
         expr: expr,
         tree: jsep(expr)

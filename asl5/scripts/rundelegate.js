@@ -1,5 +1,5 @@
-var scriptrunner = require('../scriptrunner.js');
-var delegates = require('../delegates.js');
+const scriptrunner = require('../scriptrunner.js');
+const delegates = require('../delegates.js');
 
 module.exports = {
     minParameters: 2,

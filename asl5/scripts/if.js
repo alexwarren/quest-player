@@ -1,12 +1,12 @@
-var scriptrunner = require('../scriptrunner.js');
-var scriptParser = require('../scriptparser.js');
-var expressions = require('../expressions.js');
+const scriptrunner = require('../scriptrunner.js');
+const scriptParser = require('../scriptparser.js');
+const expressions = require('../expressions.js');
 
 module.exports = {
     create: function (line) {
-        var scripts = require('../scripts.js');
-        var parameters = scriptParser.getParameterInternal(line, '(', ')');
-        var thenScript = scripts.parseScript(parameters.after);
+        const scripts = require('../scripts.js');
+        const parameters = scriptParser.getParameterInternal(line, '(', ')');
+        const thenScript = scripts.parseScript(parameters.after);
 
         return {
             expression: expressions.parseExpression(parameters.parameter),
@@ -23,7 +23,7 @@ module.exports = {
                 ctx.complete();
             }
             else {
-                var evaluateElse = function () {
+                const evaluateElse = function () {
                     if (ctx.parameters.else) {
                         scriptrunner.getCallstack().push({
                             script: ctx.parameters.else,
@@ -34,9 +34,9 @@ module.exports = {
                 };
                 
                 if (ctx.parameters.elseIf) {
-                    var index = 0;
+                    let index = 0;
                     
-                    var evaluateElseIf = function () {
+                    const evaluateElseIf = function () {
                         scriptrunner.evaluateExpression(ctx.parameters.elseIf[index].expression, (result) => {
                             if (result) {
                                 scriptrunner.getCallstack().push({

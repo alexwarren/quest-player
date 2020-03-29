@@ -1,4 +1,4 @@
-var removeSurroundingBraces = function (text) {
+const removeSurroundingBraces = function (text) {
     // based on WorldModel.Utility.RemoveSurroundingBraces
 
     text = text.trim();
@@ -8,15 +8,15 @@ var removeSurroundingBraces = function (text) {
     return text;
 };
 
-var getScriptLine = function (text) {
+const getScriptLine = function (text) {
     // based on WorldModel.Utility.GetScript
     // return one line of the script, and the remaining script
 
-    var result;
-    var obscuredScript = obscureStrings(text);
-    var bracePos = obscuredScript.indexOf('{');
-    var crlfPos = obscuredScript.indexOf('\n');
-    var commentPos = obscuredScript.indexOf('//');
+    let result;
+    const obscuredScript = obscureStrings(text);
+    const bracePos = obscuredScript.indexOf('{');
+    const crlfPos = obscuredScript.indexOf('\n');
+    const commentPos = obscuredScript.indexOf('//');
     if (crlfPos === -1) return {
         line: text.trim()
     };
@@ -28,9 +28,9 @@ var getScriptLine = function (text) {
         };
     }
 
-    var beforeBrace = text.substring(0, bracePos);
-    var parameterResult = getParameterInternal(text, '{', '}');
-    var insideBraces = parameterResult.parameter;
+    const beforeBrace = text.substring(0, bracePos);
+    const parameterResult = getParameterInternal(text, '{', '}');
+    const insideBraces = parameterResult.parameter;
 
     if (insideBraces.indexOf('\n') !== -1) {
         result = beforeBrace + '{' + insideBraces + '}';
@@ -45,23 +45,23 @@ var getScriptLine = function (text) {
     };
 };
 
-var getAndSplitParameters = function (text) {
-    var parameter = getParameter(text);
+const getAndSplitParameters = function (text) {
+    const parameter = getParameter(text);
     if (!parameter) return [];
     return splitParameters(parameter);
 };
 
-var splitParameters = function (parameter) {
+const splitParameters = function (parameter) {
     // based on WorldModel.Utility.SplitParameter
-    var result = [];
-    var inQuote = false;
-    var processNextCharacter = true;
-    var bracketCount = 0;
-    var curParam = [];
+    const result = [];
+    let inQuote = false;
+    let processNextCharacter = true;
+    let bracketCount = 0;
+    let curParam = [];
 
-    for (var i = 0; i < parameter.length; i++) {
-        var c = parameter.charAt(i);
-        var processThisCharacter = processNextCharacter;
+    for (let i = 0; i < parameter.length; i++) {
+        const c = parameter.charAt(i);
+        const processThisCharacter = processNextCharacter;
         processNextCharacter = true;
 
         if (processThisCharacter) {
@@ -92,26 +92,26 @@ var splitParameters = function (parameter) {
     return result;
 };
 
-var getParameter = function (text) {
-    var result = getParameterInternal(text, '(', ')');
+const getParameter = function (text) {
+    const result = getParameterInternal(text, '(', ')');
     if (!result) return null;
     return result.parameter;
 };
 
-var getParameterInternal = function (text, open, close) {
+const getParameterInternal = function (text, open, close) {
     // based on WorldModel.Utility.GetParameterInt
 
-    var obscuredText = obscureStrings(text);
-    var start = obscuredText.indexOf(open);
+    const obscuredText = obscureStrings(text);
+    const start = obscuredText.indexOf(open);
     if (start === -1) return null;
 
-    var finished = false;
-    var braceCount = 1;
-    var pos = start;
+    let finished = false;
+    let braceCount = 1;
+    let pos = start;
 
     while (!finished) {
         pos++;
-        var curChar = obscuredText.charAt(pos);
+        const curChar = obscuredText.charAt(pos);
         if (curChar === open) braceCount++;
         if (curChar === close) braceCount--;
         if (braceCount === 0 || pos === obscuredText.length - 1) finished = true;
@@ -127,15 +127,15 @@ var getParameterInternal = function (text, open, close) {
     };
 };
 
-var obscureStrings = function (input) {
+const obscureStrings = function (input) {
     // based on WorldModel.Utility.ObscureStrings
 
-    var sections = splitQuotes(input);
-    var result = [];
+    const sections = splitQuotes(input);
+    const result = [];
 
-    var insideQuote = false;
-    for (var i = 0; i < sections.length; i++) {
-        var section = sections[i];
+    let insideQuote = false;
+    for (let i = 0; i < sections.length; i++) {
+        const section = sections[i];
         if (insideQuote) {
             result.push(Array(section.length + 1).join('-'));
         }
@@ -150,18 +150,18 @@ var obscureStrings = function (input) {
     return result.join('');
 };
 
-var splitQuotes = function (text) {
+const splitQuotes = function (text) {
     // based on WorldModel.Utility.SplitQuotes
 
-    var result = [];
-    var processNextCharacter = true;
-    var curParam = [];
-    var gotCloseQuote = true;
+    const result = [];
+    let processNextCharacter = true;
+    let curParam = [];
+    let gotCloseQuote = true;
 
-    for (var i = 0; i < text.length; i++) {
-        var curChar = text.charAt(i);
+    for (let i = 0; i < text.length; i++) {
+        const curChar = text.charAt(i);
 
-        var processThisCharacter = processNextCharacter;
+        const processThisCharacter = processNextCharacter;
         processNextCharacter = true;
 
         if (processThisCharacter) {

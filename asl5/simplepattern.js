@@ -1,6 +1,6 @@
-var state = require('./state.js');
+const state = require('./state.js');
 
-var load = function (node, element, attributeName) {
+const load = function (node, element, attributeName) {
     if (state.get(element, 'isverb')) {
         state.onLoadFinished(() => {
             // do this after loading, as we need the separator attribute to exist to create
@@ -13,8 +13,8 @@ var load = function (node, element, attributeName) {
     }
 };
 
-var loadCommand = function (node, element, attributeName) {
-    var value = node.textContent
+const loadCommand = function (node, element, attributeName) {
+    const value = node.textContent
         .replace(/\(/g, '\\(')
         .replace(/\)/g, '\\)')
         .replace(/\./g, '\\.')
@@ -28,42 +28,42 @@ var loadCommand = function (node, element, attributeName) {
         throw 'Invalid command pattern ' + element.attributes.name + '.' + attributeName + ' = ' + node.textContent;
     }
     
-    var patterns = value.split(/\s*;\s*/).map((pattern) => {
+    const patterns = value.split(/\s*;\s*/).map((pattern) => {
         return '^' + pattern + '$';
     }).join('|');
     
     state.set(element, attributeName, patterns);
 };
 
-var loadVerb = function (node, element, attributeName) {
-    var value = convertVerbSimplePattern(node.textContent, state.get(element, 'separator'));
+const loadVerb = function (node, element, attributeName) {
+    const value = convertVerbSimplePattern(node.textContent, state.get(element, 'separator'));
     state.set(element, attributeName, value);
-    var verbs = node.textContent.split(';');
+    const verbs = node.textContent.split(';');
     state.set(element, 'displayverb', verbs[0].replace('#object#', '').trim());
 };
 
-var convertVerbSimplePattern = function (pattern, separator) {
+const convertVerbSimplePattern = function (pattern, separator) {
     // For verbs, we replace "eat; consume; munch" with
     // "^eat (?<object>.*)$|^consume (?<object>.*)$|^munch (?<object>.*)$"
     
     // Optionally the position of the object can be specified, for example
     // "switch #object# on" would become "^switch (?<object>.*) on$"
 
-    var verbs = pattern.split(/\s*;\s*/);
-    var result = '';
-    var separatorRegex = null;
+    const verbs = pattern.split(/\s*;\s*/);
+    let result = '';
+    let separatorRegex = null;
 
     if (separator)
     {
-        var separators = separator.split(/\s*;\s*/);
+        const separators = separator.split(/\s*;\s*/);
         separatorRegex = '(' + separators.join('|') + ')';
     }
 
     verbs.forEach((verb) => {
         if (result.length > 0) result += '|';
-        var objectRegex = '(?<object>.*?)';
+        const objectRegex = '(?<object>.*?)';
 
-        var textToAdd;
+        let textToAdd;
         if (verb.indexOf('#object#') !== -1)
         {
             textToAdd = '^' + verb.replace(/#object#/g, objectRegex);

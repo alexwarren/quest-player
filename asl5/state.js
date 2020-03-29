@@ -1,29 +1,29 @@
-var scripts = require('./scripts.js');
+const scripts = require('./scripts.js');
 
-var elements = {};
-var elementsOfType = {};
-var templateLookup = {};
-var version;
-var loadFinishedActions = [];
-var loading = true;
+const elements = {};
+const elementsOfType = {};
+const templateLookup = {};
+let version;
+let loadFinishedActions = [];
+let loading = true;
 
-var setVersion = function (value) {
+const setVersion = function (value) {
     version = value;
 };
 
-var minVersion = function (value) {
+const minVersion = function (value) {
     return version >= value;
 };
 
-var maxVersion = function (value) {
+const maxVersion = function (value) {
     return version <= value;
 };
 
-var onLoadFinished = function (fn) {
+const onLoadFinished = function (fn) {
     loadFinishedActions.push(fn);
 };
 
-var finishedLoading = function () {
+const finishedLoading = function () {
     removeMissingDefaultTypeReferences();
     loading = false;
     loadFinishedActions.forEach((fn) => {
@@ -32,7 +32,7 @@ var finishedLoading = function () {
     loadFinishedActions = [];
 };
 
-var newAttribute = function (type) {
+const newAttribute = function (type) {
     if (type == 'stringlist' || type == 'objectlist' || type == 'list') {
         return {
             value: [],
@@ -50,21 +50,21 @@ var newAttribute = function (type) {
     throw 'Unknown attribute type: ' + type;
 };
 
-var getElement = function (elementName) {
-    var element = elements[elementName];
+const getElement = function (elementName) {
+    const element = elements[elementName];
     if (!element) {
         throw 'No element named ' + elementName;
     }
     return element;	
 };
 
-var tryGetElement = function (elementName) {
+const tryGetElement = function (elementName) {
     return elements[elementName];
 };
 
-var set = function (element, attribute, value) {
+const set = function (element, attribute, value) {
     // TODO: See Fields.Set
-    var oldValue = null;
+    let oldValue = null;
     if (attribute in element.attributes) {
         oldValue = get(element, attribute);
     }
@@ -81,7 +81,7 @@ var set = function (element, attribute, value) {
     element.attributes[attribute] = value;
 
     if (oldValue !== value) {
-        var changedScript = getAttributeOfType(element, 'changed' + attribute, 'script');
+        const changedScript = getAttributeOfType(element, 'changed' + attribute, 'script');
 
         if (changedScript !== null) {
             scripts.executeScript(changedScript.script, {
@@ -94,16 +94,16 @@ var set = function (element, attribute, value) {
     }
 };
 
-var get = function (element, attribute) {
-    var result = element.attributes[attribute];
+const get = function (element, attribute) {
+    let result = element.attributes[attribute];
     if (typeof result === 'undefined') {
         if (loading) {
             // Types haven't been initialised yet if we're still loading
             return null;
         }
 
-        for (var idx in element.inheritedTypes) {
-            var inheritedTypeElement = getElement(element.inheritedTypes[idx]);
+        for (const idx in element.inheritedTypes) {
+            const inheritedTypeElement = getElement(element.inheritedTypes[idx]);
             if (hasAttribute(inheritedTypeElement, attribute)) {
                 result = get(inheritedTypeElement, attribute);
                 break;
@@ -119,19 +119,19 @@ var get = function (element, attribute) {
     return result;
 };
 
-var addInheritedType = function (element, typeName) {
+const addInheritedType = function (element, typeName) {
     // TODO: Check for circular inheritance
     element.inheritedTypes.splice(0, 0, typeName);
 };
 
-var hasAttribute = function (element, attribute) {
+const hasAttribute = function (element, attribute) {
     if (attribute in element.attributes) return true;
 
     // Types haven't been initialised yet if we're still loading 
     if (loading) return false;
     
-    for (var idx in element.inheritedTypes) {
-        var inheritedTypeElement = getElement(element.inheritedTypes[idx]);
+    for (const idx in element.inheritedTypes) {
+        const inheritedTypeElement = getElement(element.inheritedTypes[idx]);
         return hasAttribute(inheritedTypeElement, attribute);
     }
     // TODO: Optional includeExtendableFields parameter to check for listexend,
@@ -139,32 +139,32 @@ var hasAttribute = function (element, attribute) {
     return false;
 };
 
-var hasAttributeOfType = function (element, attribute, type) {
+const hasAttributeOfType = function (element, attribute, type) {
     if (!hasAttribute(element, attribute)) return false;
-    var value = get(element, attribute);
+    const value = get(element, attribute);
     return isValueOfType(value, type);
 };
 
-var getAttributeOfType = function (element, attribute, type) {
+const getAttributeOfType = function (element, attribute, type) {
     if (!hasAttribute(element, attribute)) return defaultValue(type);
-    var value = get(element, attribute);
+    const value = get(element, attribute);
     if (isValueOfType(value, type)) return value;
     return defaultValue(type);
 };
 
-var isValueOfType = function (value, type) {
-    var actualType = typeOf(value);
+const isValueOfType = function (value, type) {
+    const actualType = typeOf(value);
     if (actualType == type) return true;
     if (actualType == 'int' && type == 'double') return true;
     return false;
 };
 
-var defaultValue = function (type) {
+const defaultValue = function (type) {
     if (type === 'boolean') return false;
     return null;
 };
 
-var typeOf = function (value) {
+const typeOf = function (value) {
     if (value === null) return 'null';
     if (typeof value === 'string') return 'string';
     if (typeof value === 'boolean') return 'boolean';
@@ -176,38 +176,37 @@ var typeOf = function (value) {
     throw 'Unknown type';
 };
 
-var checkIsList = function (list) {
+const checkIsList = function (list) {
     if (!isList(list)) {
         throw 'Value is not a list type';
     }
 };
 
-var isList = function (list) {
+const isList = function (list) {
     return list.type == 'list' ||
         list.type == 'stringlist' ||
         list.type == 'objectlist';
 };
 
-var checkIsDictionary = function (dic) {
+const checkIsDictionary = function (dic) {
     if (!isDictionary(dic)) {
         throw 'Value is not a dictionary type';
     }
 };
 
-var isDictionary = function (dic) {
+const isDictionary = function (dic) {
     return dic.type == 'stringdictionary' ||
         dic.type == 'objectdictionary' ||
         dic.type == 'objectlist' ||
         dic.type == 'dictionary';
 };
 
-
-var attributeNames = function (element, includeInheritedAttributes) {
-    var result = Object.keys(element.attributes);
+const attributeNames = function (element, includeInheritedAttributes) {
+    let result = Object.keys(element.attributes);
     if (includeInheritedAttributes) {
-        for (var idx in element.inheritedTypes) {
-            var inheritedTypeElement = getElement(element.inheritedTypes[idx]);
-            var additionalAttributes = attributeNames(inheritedTypeElement);
+        for (const idx in element.inheritedTypes) {
+            const inheritedTypeElement = getElement(element.inheritedTypes[idx]);
+            const additionalAttributes = attributeNames(inheritedTypeElement);
             result = result.concat(additionalAttributes.filter((a) => {
                 return result.indexOf(a) === -1;
             }));
@@ -216,17 +215,17 @@ var attributeNames = function (element, includeInheritedAttributes) {
     return result;
 };
 
-var isElement = function (elementName) {
+const isElement = function (elementName) {
     return elementName in elements;
 };
 
-var create = function (elementName, elementType, elementSubType) {
-    var inheritedTypes = [];
+const create = function (elementName, elementType, elementSubType) {
+    const inheritedTypes = [];
     if (elementType == 'object') {
         if (!elementSubType) throw 'Object must have a subtype';
         inheritedTypes.push('default' + elementSubType);
     }
-    var element = {
+    const element = {
         name: elementName,
         type: 'element',
         elementType: elementType,
@@ -244,19 +243,19 @@ var create = function (elementName, elementType, elementSubType) {
     return element;
 };
 
-var addTemplate = function (element) {
+const addTemplate = function (element) {
     templateLookup[element.attributes.templatename] = element;
 };
 
-var getTemplate = function (name) {
+const getTemplate = function (name) {
     return templateLookup[name];
 };
 
-var getElements = function (elementType, elementSubType) {
-    var elements = elementsOfType[elementType];
-    var result = [];
-    for (var key in elements) {
-        var element = elements[key];
+const getElements = function (elementType, elementSubType) {
+    const elements = elementsOfType[elementType];
+    const result = [];
+    for (const key in elements) {
+        const element = elements[key];
         if (!elementSubType || element.elementSubType == elementSubType) {
             result.push(element);
         }
@@ -264,76 +263,76 @@ var getElements = function (elementType, elementSubType) {
     return result;
 };
 
-var addFunction = function (functionName, script, parameters) {
-    var fn = create(functionName, 'function');
+const addFunction = function (functionName, script, parameters) {
+    const fn = create(functionName, 'function');
     fn.attributes = {
         script: script,
         parameters: parameters
     };
 };
 
-var functionExists = function (functionName) {
+const functionExists = function (functionName) {
     return functionName in elementsOfType['function'];
 };
 
-var getFunction = function (functionName) {
+const getFunction = function (functionName) {
     return elementsOfType['function'][functionName].attributes.script;
 };
 
-var getFunctionDefinition = function (functionName) {
+const getFunctionDefinition = function (functionName) {
     return elementsOfType['function'][functionName].attributes;
 };
 
-var getDirectChildren = function (parent, elementType, elementSubType) {
-    var allElements = getElements(elementType, elementSubType);
+const getDirectChildren = function (parent, elementType, elementSubType) {
+    const allElements = getElements(elementType, elementSubType);
     return allElements.filter((element) => {
         return element.attributes.parent == parent;
     });
 };
 
-var getAllChildren = function (parent, elementType, elementSubType) {
-    var directChildren = getDirectChildren(parent, elementType, elementSubType);
-    var result = [];
-    for (var idx in directChildren) {
-        var child = directChildren[idx];
+const getAllChildren = function (parent, elementType, elementSubType) {
+    const directChildren = getDirectChildren(parent, elementType, elementSubType);
+    let result = [];
+    for (const idx in directChildren) {
+        const child = directChildren[idx];
         result = result.concat(child, getAllChildren(child, elementType, elementSubType));
     }
     return result;
 };
 
-var contains = function (parent, element) {
+const contains = function (parent, element) {
     if (!element.attributes.parent) return false;
     if (element.attributes.parent == parent) return true;
     return contains(parent, element.attributes.parent);
 };
 
-var nextUniqueId = {};
+const nextUniqueId = {};
 
-var getUniqueId = function (prefix) {
+const getUniqueId = function (prefix) {
     prefix = prefix || 'k';
     if (!(prefix in nextUniqueId)) {
         nextUniqueId[prefix] = 1;
     }
-    var newId;
+    let newId;
     do {
         newId = prefix + nextUniqueId[prefix]++;
     } while (isElement(newId));
     return newId;
 };
 
-var removeMissingDefaultTypeReferences = function () {
-    for (var elementName in elementsOfType.object) {
-        var element = elementsOfType.object[elementName];
-        var defaultTypeName = 'default' + element.elementSubType;
-        var defaultType = tryGetElement(defaultTypeName);
+const removeMissingDefaultTypeReferences = function () {
+    for (const elementName in elementsOfType.object) {
+        const element = elementsOfType.object[elementName];
+        const defaultTypeName = 'default' + element.elementSubType;
+        const defaultType = tryGetElement(defaultTypeName);
         if (!defaultType) {
-            var idx = element.inheritedTypes.indexOf(defaultTypeName);
+            const idx = element.inheritedTypes.indexOf(defaultTypeName);
             element.inheritedTypes.splice(idx, 1);
         }
     }
 };
 
-var dump = function () {
+const dump = function () {
     console.log('Elements:');
     console.log(elements);
 };

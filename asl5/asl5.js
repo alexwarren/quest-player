@@ -1,9 +1,9 @@
-var state = require('./state.js');
-var loader = require('./loader.js');
-var scripts = require('./scripts.js');
-var ui = require('./ui.js');
+const state = require('./state.js');
+const loader = require('./loader.js');
+const scripts = require('./scripts.js');
+const ui = require('./ui.js');
 
-var begin = function () {
+const begin = function () {
     // Based on WorldModel.Begin
     
     // TODO: Init timer runner
@@ -23,12 +23,12 @@ var begin = function () {
     // TODO: Send next timer request
 };
 
-var sendCommand = function (command, elapsedTime, metadata) {
+const sendCommand = function (command, elapsedTime, metadata) {
     // TODO: Increment time
     // TODO: Check if command override mode is on
     // TODO: Echo input for ASL <= 520
     
-    var metadataArg = state.newAttribute('stringdictionary');
+    const metadataArg = state.newAttribute('stringdictionary');
     if (metadata) metadataArg.value = metadata;
     
     scripts.executeScript(state.getFunction('HandleCommand'), {
@@ -45,7 +45,7 @@ var sendCommand = function (command, elapsedTime, metadata) {
     // TODO: Send next timer request
 };
 
-var load = function (data) {
+const load = function (data) {
     loader.load(data);
 };
 

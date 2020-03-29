@@ -1,19 +1,19 @@
 // based on http://www.mylifeforthecode.com/saving-and-restoring-window-state-in-electron/
 
-var app;
+let app;
 
 try {
     app = require('app'); 
 }
 catch (e) {
-    var remote = require('remote');
+    const remote = require('remote');
     app = remote.require('app');
 }
  
-var fs = require('fs');
-var path = require('path');
-var data = null;
-var dataFilePath = path.join(app.getPath('userData'), 'settings.json'); 
+const fs = require('fs');
+const path = require('path');
+let data = null;
+const dataFilePath = path.join(app.getPath('userData'), 'settings.json'); 
 
 function load() {
     if (!fs.existsSync(dataFilePath)) {
@@ -36,7 +36,7 @@ exports.set = function (key, value) {
 
 exports.get = function (key) { 
     load();
-    var value = null;
+    let value = null;
     if (key in data) {
         value = data[key];
     } 

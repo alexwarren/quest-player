@@ -1,11 +1,11 @@
-var scriptrunner = require('../scriptrunner.js');
-var ui = require('../ui.js');
+const scriptrunner = require('../scriptrunner.js');
+const ui = require('../ui.js');
 
 module.exports = {
     parameters: [2],
     execute: function (ctx) {               
         scriptrunner.evaluateExpression(ctx.parameters[1], (data) => {
-            var request = ctx.parameters[0].expr;
+            const request = ctx.parameters[0].expr;
 
             // Any changes here should also be reflected in CoreEditorScriptsOutput.aslx (validvalues for "request" command)
             // and also in the documentation https://github.com/textadventures/quest/blob/gh-pages/scripts/request.md
@@ -79,10 +79,11 @@ module.exports = {
                     // TODO
                     console.log('Unhandled request type ' + request);
                     break;
-                case 'SetInterfaceString':
-                    var args = data.split('=');
+                case 'SetInterfaceString': {
+                    const args = data.split('=');
                     ui.setInterfaceString(args[0], args[1]);
                     break;
+                }
                 case 'RequestSave':
                     // TODO
                     console.log('Unhandled request type ' + request);
