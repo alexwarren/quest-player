@@ -380,7 +380,7 @@ var functions = {
         var dic = args[0];
         var key = getParameter(args[1], 'DictionaryContains', 'string');
         checkIsDictionary(dic);
-        return Object.prototype.hasOwnProperty.call(dic, hasOwnProperty(key));
+        return Object.prototype.hasOwnProperty.call(dic.value, key);
     },
     'DictionaryCount': function () {
         // TODO
