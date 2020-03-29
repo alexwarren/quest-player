@@ -31,13 +31,15 @@ gulp.task('ui', function () {
         .pipe(gulp.dest('dist/ui'));
 });
 
+gulp.task('examples', function () {
+    return gulp.src('examples/**/*')
+        .pipe(gulp.dest('dist'));
+});
+
 gulp.task('files', function () {
     return gulp.src([
-        '*.html',
-        '*.asl',
-        '*.aslx',
-        '*.cas'
+        '*.html'
     ]).pipe(gulp.dest('dist'));
 });
 
-gulp.task('default', gulp.series('lib', 'ui', 'files'));
+gulp.task('default', gulp.series('lib', 'ui', 'examples', 'files'));
