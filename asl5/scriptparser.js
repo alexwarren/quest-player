@@ -1,3 +1,5 @@
+'use strict';
+
 const removeSurroundingBraces = function (text) {
     // based on WorldModel.Utility.RemoveSurroundingBraces
 

@@ -1,3 +1,5 @@
+'use strict';
+
 // based on http://www.mylifeforthecode.com/saving-and-restoring-window-state-in-electron/
 
 let app;

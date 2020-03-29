@@ -1,3 +1,5 @@
+'use strict';
+
 const state = require('./state.js');
 const functions = require('./functions.js');
 const ui = require('./ui.js');

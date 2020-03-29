@@ -1,3 +1,5 @@
+'use strict';
+
 const scriptrunner = require('../scriptrunner.js');
 const dictionaries = require('../dictionaries.js');
 

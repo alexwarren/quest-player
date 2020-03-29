@@ -1,3 +1,5 @@
+'use strict';
+
 const state = require('./state.js');
 
 const load = function (node, element, attributeName) {

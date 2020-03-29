@@ -35,6 +35,10 @@ module.exports = {
             "always",
             { "null": "ignore" }
         ],
-        "no-else-return": "error"
+        "no-else-return": "error",
+        "strict": [
+            "error",
+            "global"
+        ]
     }
 };

@@ -1,3 +1,5 @@
+'use strict';
+
 const app = require('electron').app;
 const BrowserWindow = require('electron').BrowserWindow;
 const dialog = require('electron').dialog;

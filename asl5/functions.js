@@ -1,3 +1,5 @@
+'use strict';
+
 const state = require('./state.js');
 const scriptrunner = require('./scriptrunner.js');
 const delegates = require('./delegates.js');

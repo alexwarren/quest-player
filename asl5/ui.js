@@ -1,3 +1,5 @@
+'use strict';
+
 /* global panesVisible */
 /* global setBackground */
 /* global stopAudio */

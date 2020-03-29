@@ -1,3 +1,5 @@
+'use strict';
+
 const jsep = require('./lib/jsep.min.js');
 
 jsep.removeUnaryOp('~');

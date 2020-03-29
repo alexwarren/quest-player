@@ -1,3 +1,5 @@
+'use strict';
+
 const expressions = require('./expressions.js');
 const scriptParser = require('./scriptparser.js');
 const scriptRunner = require('./scriptrunner.js');

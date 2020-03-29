@@ -1,3 +1,5 @@
+'use strict';
+
 const ui = require('../ui.js');
 const scriptrunner = require('../scriptrunner.js');
 

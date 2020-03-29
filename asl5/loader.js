@@ -1,3 +1,5 @@
+'use strict';
+
 const state = require('./state.js');
 const scripts = require('./scripts.js');
 const expressions = require('./expressions.js');

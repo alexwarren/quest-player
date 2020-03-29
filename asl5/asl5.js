@@ -1,3 +1,5 @@
+'use strict';
+
 const state = require('./state.js');
 const loader = require('./loader.js');
 const scripts = require('./scripts.js');

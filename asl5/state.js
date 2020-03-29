@@ -1,3 +1,5 @@
+'use strict';
+
 const scripts = require('./scripts.js');
 
 const elements = {};

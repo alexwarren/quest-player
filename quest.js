@@ -1,3 +1,5 @@
+'use strict';
+
 /* global $, quest, apiRoot, $_GET, onLoadDesktop */
 
 require('babel-polyfill');
