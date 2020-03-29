@@ -1,7 +1,7 @@
 /* global $, quest, apiRoot, $_GET, onLoadDesktop */
 
 require('babel-polyfill');
-var asl6 = require('./asl6.js');
+var asl5 = require('./asl5/asl5.js');
 
 window.quest = window.quest || {};
 
@@ -73,9 +73,9 @@ var launchV4 = function (url, resourceRoot, resumeData) {
 
 var launchV6 = function (url) {
     $.get(url, function (data) {
-        quest.sendCommand = asl6.sendCommand;
-        asl6.load(data);
-        asl6.begin();
+        quest.sendCommand = asl5.sendCommand;
+        asl5.load(data);
+        asl5.begin();
     });
 };
 
