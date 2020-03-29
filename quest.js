@@ -54,7 +54,7 @@ var checkCanSave = function () {
 };
 
 var launchV4 = function (url, resourceRoot, resumeData) {
-    var asl4 = require('./asl4.js');
+    var asl4 = require('./asl4/asl4.js');
     var game = asl4.createGame(url, url, resumeData, fileFetcher, binaryFileFetcher, resourceRoot);
     var onSuccess = function () {
         game.Begin();

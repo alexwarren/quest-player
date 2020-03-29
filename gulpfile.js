@@ -12,7 +12,7 @@ gulp.task('asl4', function () {
         .pipe(tsProject())
         .pipe(babel())
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('.'));
+        .pipe(gulp.dest('./asl4'));
 });
 
 gulp.task('webpack', function() {
