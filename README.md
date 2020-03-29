@@ -9,4 +9,6 @@ Building Quest Player:
 - `npm run build`
 - `npm run web`
 
-Now navigate to `http://localhost:8080/?file=blank.aslx`
+To start the web version, navigate to `http://localhost:8080/?file=blank.aslx`
+
+To start the desktop version, `npm start`
