@@ -1,10 +1,6 @@
 "use strict";
 
-interface QuestWindow extends Window {
-    quest: any;
-}
-
-var quest = (<QuestWindow> window).quest || {};
+var quest = (<any>window).quest || {};
 
 function Left(input: string, length: number): string {
     return input.substring(0, length);
