@@ -72,7 +72,7 @@ var launchV4 = function (url, resourceRoot, resumeData) {
 };
 
 var launchV6 = function (url) {
-    $.get(url, function (data) {
+    $.get(url, (data) => {
         quest.sendCommand = asl5.sendCommand;
         asl5.load(data);
         asl5.begin();
@@ -106,7 +106,7 @@ var onLoadWeb = function () {
     if (!id) return;
     
     var load = function () {
-        $.get('http://textadventures.co.uk/api/game/' + id, function (result) {
+        $.get('http://textadventures.co.uk/api/game/' + id, (result) => {
             checkCanSave();
             
             if (result.ASLVersion >= 500) {

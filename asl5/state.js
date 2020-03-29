@@ -26,7 +26,7 @@ var onLoadFinished = function (fn) {
 var finishedLoading = function () {
     removeMissingDefaultTypeReferences();
     loading = false;
-    loadFinishedActions.forEach(function (fn) {
+    loadFinishedActions.forEach((fn) => {
         fn();
     });
     loadFinishedActions = [];
@@ -208,7 +208,7 @@ var attributeNames = function (element, includeInheritedAttributes) {
         for (var idx in element.inheritedTypes) {
             var inheritedTypeElement = getElement(element.inheritedTypes[idx]);
             var additionalAttributes = attributeNames(inheritedTypeElement);
-            result = result.concat(additionalAttributes.filter(function (a) {
+            result = result.concat(additionalAttributes.filter((a) => {
                 return result.indexOf(a) === -1;
             }));
         }
@@ -286,7 +286,7 @@ var getFunctionDefinition = function (functionName) {
 
 var getDirectChildren = function (parent, elementType, elementSubType) {
     var allElements = getElements(elementType, elementSubType);
-    return allElements.filter(function (element) {
+    return allElements.filter((element) => {
         return element.attributes.parent == parent;
     });
 };

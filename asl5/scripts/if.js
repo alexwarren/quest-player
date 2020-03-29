@@ -14,7 +14,7 @@ module.exports = {
         };
     },
     execute: function (ctx) {
-        scriptrunner.evaluateExpression(ctx.parameters.expression, function (result) {
+        scriptrunner.evaluateExpression(ctx.parameters.expression, (result) => {
             if (result) {
                 scriptrunner.getCallstack().push({
                     script: ctx.parameters.then,
@@ -37,7 +37,7 @@ module.exports = {
                     var index = 0;
                     
                     var evaluateElseIf = function () {
-                        scriptrunner.evaluateExpression(ctx.parameters.elseIf[index].expression, function (result) {
+                        scriptrunner.evaluateExpression(ctx.parameters.elseIf[index].expression, (result) => {
                             if (result) {
                                 scriptrunner.getCallstack().push({
                                     script: ctx.parameters.elseIf[index].script,

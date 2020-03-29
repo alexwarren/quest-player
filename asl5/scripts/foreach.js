@@ -23,7 +23,7 @@ module.exports = {
         // TODO: Pre Quest 5.3 allows foreach over a string to get each character
         // TODO: "return" breaks loop
         // TODO: Handle types other than stringlist
-        scriptrunner.evaluateExpression(ctx.parameters.list, function (listResult) {
+        scriptrunner.evaluateExpression(ctx.parameters.list, (listResult) => {
             if (!listResult.type || 
                 (listResult.type != 'stringlist' &&
                 listResult.type != 'objectlist' &&
@@ -61,7 +61,7 @@ module.exports = {
                                     runLoop();
                                 }
                                 else {
-                                    setTimeout(function () {
+                                    setTimeout(() => {
                                         runLoop();
                                     }, 0);
                                 }

@@ -4,7 +4,7 @@ var ts = require('gulp-typescript');
 var babel = require('gulp-babel');
 var webpack = require('webpack-stream');
 
-gulp.task('asl4', function () {
+gulp.task('asl4', () => {
     var tsProject = ts.createProject('asl4/tsconfig.json');
       
     return gulp.src('asl4/asl4.ts')
@@ -15,28 +15,28 @@ gulp.task('asl4', function () {
         .pipe(gulp.dest('./asl4'));
 });
 
-gulp.task('webpack', function() {
+gulp.task('webpack', () => {
     return gulp.src('quest.js')
         .pipe(webpack(require('./webpack.config.js')))
         .pipe(gulp.dest('dist/'));
 });
 
-gulp.task('lib', function () {
+gulp.task('lib', () => {
     return gulp.src('lib/**/*')
         .pipe(gulp.dest('dist/lib'));
 });
 
-gulp.task('ui', function () {
+gulp.task('ui', () => {
     return gulp.src('ui/**/*')
         .pipe(gulp.dest('dist/ui'));
 });
 
-gulp.task('examples', function () {
+gulp.task('examples', () => {
     return gulp.src('examples/**/*')
         .pipe(gulp.dest('dist'));
 });
 
-gulp.task('files', function () {
+gulp.task('files', () => {
     return gulp.src([
         '*.html'
     ]).pipe(gulp.dest('dist'));

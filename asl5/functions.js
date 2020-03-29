@@ -6,7 +6,7 @@ var asyncFunctions = {
     'GetInput': function (args, complete) {
         // TODO: Override input handler
         
-        setTimeout(function () {
+        setTimeout(() => {
             complete('test');
         }, 200);
     },
@@ -461,7 +461,7 @@ var functions = {
         var exclude = args[1];
         checkIsList(list);
         var result = state.newAttribute(list.type);
-        result.value = list.value.filter(function (value) {
+        result.value = list.value.filter((value) => {
             return value !== exclude;
         });
         return result;
@@ -599,7 +599,7 @@ var getMatchStrength = function (regexAndMap, input) {
     var groupIndexes = Object.keys(regexAndMap.map);
     console.log(groupIndexes);
 
-    groupIndexes.forEach(function (idx) {
+    groupIndexes.forEach((idx) => {
         var match = matches[parseInt(idx)];
         if (match) lengthOfTextMatchedByGroups += match.length;
     });

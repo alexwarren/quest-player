@@ -55,7 +55,7 @@ var hide = function (element) {
 };
 
 var updateCompassDirections = function (listData) {
-    var directions = listData.map(function (item) {
+    var directions = listData.map((item) => {
         return item.Text;
     });
     updateCompass(directions);

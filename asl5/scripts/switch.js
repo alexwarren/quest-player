@@ -32,7 +32,7 @@ module.exports = {
                     var script = scripts.parseScript(caseScript);
 
                     var matchList = scriptParser.splitParameters(expr);
-                    result = result.concat(matchList.map(function (match) {
+                    result = result.concat(matchList.map((match) => {
                         return {
                             expr: expressions.parseExpression(match),
                             script: script
@@ -58,10 +58,10 @@ module.exports = {
         };
     },
     execute: function (ctx) {
-        scriptrunner.evaluateExpression(ctx.parameters.expression, function (result) {            
+        scriptrunner.evaluateExpression(ctx.parameters.expression, (result) => {            
             var index = 0;
             var evaluateCase = function () {
-                scriptrunner.evaluateExpression(ctx.parameters.cases[index].expr, function (caseResult) {
+                scriptrunner.evaluateExpression(ctx.parameters.cases[index].expr, (caseResult) => {
                     if (result.toString() === caseResult.toString()) {
                         scriptrunner.getCallstack().push({
                             script: ctx.parameters.cases[index].script,

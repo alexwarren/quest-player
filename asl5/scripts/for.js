@@ -43,7 +43,7 @@ module.exports = {
                                     runLoop();
                                 }
                                 else {
-                                    setTimeout(function () {
+                                    setTimeout(() => {
                                         iterations = 0;
                                         runLoop();
                                     }, 0);
@@ -62,10 +62,10 @@ module.exports = {
             runLoop();
         };
         
-        scriptrunner.evaluateExpression(ctx.parameters.from, function (fromResult) {
-            scriptrunner.evaluateExpression(ctx.parameters.to, function (toResult) {
+        scriptrunner.evaluateExpression(ctx.parameters.from, (fromResult) => {
+            scriptrunner.evaluateExpression(ctx.parameters.to, (toResult) => {
                 if (ctx.parameters.step) {
-                    scriptrunner.evaluateExpression(ctx.parameters.step, function (stepResult) {
+                    scriptrunner.evaluateExpression(ctx.parameters.step, (stepResult) => {
                         go (fromResult, toResult, stepResult);
                     });
                 }

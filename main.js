@@ -12,7 +12,7 @@ if (process.platform !== 'darwin' && process.argv[1] !== '.') {
     openFile = process.argv[1];
 }
 
-app.on('open-file', function (event /*, path */) {
+app.on('open-file', (event /*, path */) => {
     event.preventDefault();
     // TODO: This handles dragging file onto app in OS X
     
@@ -57,7 +57,7 @@ var init = function() {
         mainWindow.loadURL('file://' + __dirname + '/start.html');
     }
     
-    mainWindow.on('close', function () {
+    mainWindow.on('close', () => {
         var bounds = mainWindow.getBounds(); 
         storage.set('lastWindowState', {
             x: bounds.x,
@@ -69,7 +69,7 @@ var init = function() {
     });
 
     // Emitted when the window is closed.
-    mainWindow.on('closed', function() {
+    mainWindow.on('closed', () => {
         // Dereference the window object, usually you would store windows
         // in an array if your app supports multi windows, this is the time
         // when you should delete the corresponding element.
@@ -82,7 +82,7 @@ var init = function() {
 };
 
 // Quit when all windows are closed, except on OS X.
-app.on('window-all-closed', function() {
+app.on('window-all-closed', () => {
     if (process.platform != 'darwin') {
         app.quit();
     }

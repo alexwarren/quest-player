@@ -3,9 +3,9 @@ var state = require('../state.js');
 
 module.exports = {
     execute: function (ctx) {
-        scriptrunner.evaluateExpression(ctx.parameters.value, function (result) {
+        scriptrunner.evaluateExpression(ctx.parameters.value, (result) => {
             if (ctx.parameters.elementExpr) {
-                scriptrunner.evaluateExpression(ctx.parameters.elementExpr, function (element) {
+                scriptrunner.evaluateExpression(ctx.parameters.elementExpr, (element) => {
                     if (element.type !== 'element') {
                         throw 'Expected element, got ' + element;
                     }

@@ -4,7 +4,7 @@ var ui = require('../ui.js');
 module.exports = {
     parameters: [2],
     execute: function (ctx) {               
-        scriptrunner.evaluateExpression(ctx.parameters[1], function (data) {
+        scriptrunner.evaluateExpression(ctx.parameters[1], (data) => {
             var request = ctx.parameters[0].expr;
 
             // Any changes here should also be reflected in CoreEditorScriptsOutput.aslx (validvalues for "request" command)

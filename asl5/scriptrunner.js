@@ -126,7 +126,7 @@ var evaluateExpressions = function (exprs, complete) {
             complete(results);
         }
         else {
-            evaluateExpression(exprs[index], function (result) {
+            evaluateExpression(exprs[index], (result) => {
                 results.push(result);
                 index++;
                 go();
@@ -198,7 +198,7 @@ var evaluateNext = function () {
                 var args = [];
                 var evaluateArgs = function () {
                     if (index == tree.arguments.length) {
-                        callFunction(tree.callee.name, args, function (result) {
+                        callFunction(tree.callee.name, args, (result) => {
                             expressionFrame.complete(result);
                         });
                         return;

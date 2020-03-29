@@ -108,12 +108,12 @@ var getFunctionCallScript = function (line) {
                         if (paramScript) {
                             args.push(paramScript);
                         }
-                        scriptRunner.callFunction(procName, args, function () {
+                        scriptRunner.callFunction(procName, args, () => {
                             ctx.complete();
                         });
                         return;
                     }
-                    scriptRunner.evaluateExpression(ctx.parameters.expressions[index], function (result) {
+                    scriptRunner.evaluateExpression(ctx.parameters.expressions[index], (result) => {
                         index++;
                         args.push(result);
                         evaluateArgs();

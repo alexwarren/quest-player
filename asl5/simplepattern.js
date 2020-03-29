@@ -2,7 +2,7 @@ var state = require('./state.js');
 
 var load = function (node, element, attributeName) {
     if (state.get(element, 'isverb')) {
-        state.onLoadFinished(function () {
+        state.onLoadFinished(() => {
             // do this after loading, as we need the separator attribute to exist to create
             // the correct regex
             loadVerb(node, element, attributeName);
@@ -19,7 +19,7 @@ var loadCommand = function (node, element, attributeName) {
         .replace(/\)/g, '\\)')
         .replace(/\./g, '\\.')
         .replace(/\?/g, '\\?')
-        .replace(/#([A-Za-z]\w+)#/g, function (match, group1) {
+        .replace(/#([A-Za-z]\w+)#/g, (match, group1) => {
             return '(?<' + group1 + '>.*)';
         });
     
@@ -28,7 +28,7 @@ var loadCommand = function (node, element, attributeName) {
         throw 'Invalid command pattern ' + element.attributes.name + '.' + attributeName + ' = ' + node.textContent;
     }
     
-    var patterns = value.split(/\s*;\s*/).map(function (pattern) {
+    var patterns = value.split(/\s*;\s*/).map((pattern) => {
         return '^' + pattern + '$';
     }).join('|');
     
@@ -59,7 +59,7 @@ var convertVerbSimplePattern = function (pattern, separator) {
         separatorRegex = '(' + separators.join('|') + ')';
     }
 
-    verbs.forEach(function (verb) {
+    verbs.forEach((verb) => {
         if (result.length > 0) result += '|';
         var objectRegex = '(?<object>.*?)';
 

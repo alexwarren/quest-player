@@ -13,7 +13,7 @@ module.exports = {
         };
     },
     execute: function (ctx) {
-        scriptrunner.evaluateExpressions(ctx.parameters.arguments, function (results) {
+        scriptrunner.evaluateExpressions(ctx.parameters.arguments, (results) => {
             var fn = window[ctx.parameters.jsFunction];
             fn.apply(window, results);
             ctx.complete();
