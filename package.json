@@ -30,9 +30,9 @@
     "requirejs": "^2.1.22",
     "source-map-loader": "^0.2.4",
     "typescript": "^3.8.3",
-    "webpack": "^4.29.1",
-    "webpack-cli": "^3.2.1",
-    "webpack-dev-server": "^3.1.14",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
     "webpack-stream": "^3.1.0"
   }
 }
