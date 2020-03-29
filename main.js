@@ -166,9 +166,7 @@ const template = [
                     if (process.platform === 'darwin') {
                         return 'Ctrl+Command+F';
                     }
-                    else {
-                        return 'F11';
-                    }
+                    return 'F11';
                 })(),
                 click: function(item, focusedWindow) {
                     if (focusedWindow) {
@@ -182,9 +180,7 @@ const template = [
                     if (process.platform === 'darwin') {
                         return 'Alt+Command+I';
                     }
-                    else {
-                        return 'Ctrl+Shift+I';
-                    }
+                    return 'Ctrl+Shift+I';
                 })(),
                 click: function(item, focusedWindow) {
                     if (focusedWindow) {

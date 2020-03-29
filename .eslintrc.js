@@ -34,6 +34,7 @@ module.exports = {
             "error",
             "always",
             { "null": "ignore" }
-        ]
+        ],
+        "no-else-return": "error"
     }
 };
