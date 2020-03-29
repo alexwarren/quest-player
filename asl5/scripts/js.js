@@ -5,7 +5,7 @@ module.exports = {
     create: function (line) {
         var scripts = require('../scripts.js');
         var parameters = scripts.parseParameters(scriptParser.getAndSplitParameters(line));
-        var jsFunction = line.match(/^JS\.([\w\.\@]*)/)[1];
+        var jsFunction = line.match(/^JS\.([\w.@]*)/)[1];
 
         return {
             arguments: parameters,

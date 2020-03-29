@@ -334,7 +334,7 @@ var functions = {
     },
     'SafeXML': function (args) {
         var input = getParameter(args[0], 'SafeXML', 'string');
-        return input.replace(/&/g, '&amp;').replace(/\</g, '&lt;').replace(/\>/g, '&gt;');
+        return input.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     },
     'IsRegexMatch': function (args) {
         var pattern = getParameter(args[0], 'IsRegexMatch', 'string');
@@ -380,7 +380,7 @@ var functions = {
         var dic = args[0];
         var key = getParameter(args[1], 'DictionaryContains', 'string');
         checkIsDictionary(dic);
-        return dic.hasOwnProperty(key);
+        return Object.prototype.hasOwnProperty.call(dic, hasOwnProperty(key));
     },
     'DictionaryCount': function () {
         // TODO

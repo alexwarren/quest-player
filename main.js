@@ -1,6 +1,3 @@
-/* global __dirname */
-/* global process */
-
 const app = require('electron').app;
 const BrowserWindow = require('electron').BrowserWindow;
 const dialog = require('electron').dialog;
