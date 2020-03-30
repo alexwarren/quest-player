@@ -14528,7 +14528,7 @@ define type <giveable>
 end define
 `;
 
-export function createGame(filename: string,
+function createGame(filename: string,
         originalFilename: string,
         data: string,
         fileFetcher: FileFetcher,
@@ -14536,3 +14536,5 @@ export function createGame(filename: string,
         resourceRoot: string) {
             return new LegacyGame(filename, originalFilename, data, fileFetcher, binaryFileFetcher, resourceRoot);
 };
+
+exports.createGame = createGame;

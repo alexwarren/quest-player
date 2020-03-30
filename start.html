@@ -3,27 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <title>Quest Player</title>
-
-        <script>
-            window.$ = window.jQuery = require(__dirname + "/lib/jquery-2.1.1.min.js");
-        </script>
-        
-        <script>
-            $(function () {
-                const ipcRenderer = require('electron').ipcRenderer;
-                
-                $('#file-open').click(function () {
-                    ipcRenderer.send('file-open');
-                });
-            });
-        </script>
     </head>
 
     <body>
         <h1>Quest Player</h1>
-        
         <a id="file-open" href="#">Open file...</a>
     </body>
 </html>

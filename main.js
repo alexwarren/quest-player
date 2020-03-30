@@ -4,6 +4,7 @@ const app = require('electron').app;
 const BrowserWindow = require('electron').BrowserWindow;
 const dialog = require('electron').dialog;
 const ipcMain = require('electron').ipcMain;
+const path = require('path');
 const storage = require('./storage');
 
 //var argv = process.argv;
@@ -42,7 +43,11 @@ const init = function() {
         x: lastWindowState.x,
         y: lastWindowState.y,
         width: lastWindowState.width, 
-        height: lastWindowState.height
+        height: lastWindowState.height,
+        webPreferences: {
+            preload: path.join(__dirname, 'preload.js'),
+            nodeIntegration: true   // TODO:  This a bad thing to enable, need to rewrite script in index.html to use preload.js
+        }
         //icon: __dirname + '/quest.png'
     });
     
@@ -98,7 +103,7 @@ app.on('activate-with-no-open-windows', init);
 app.on('ready', init);
 
 const fileOpen = function () {
-    const result = dialog.showOpenDialog({
+    const result = dialog.showOpenDialogSync({
         filters: [
             { name: 'Quest games', extensions: ['aslx', 'asl', 'cas'] }
         ]
