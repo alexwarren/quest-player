@@ -154,6 +154,8 @@ window.gridApi.onLoad = function () {
     }
 };
 
+window.launchFilename = launchFilename;
+
 // TODO: Game session logging for ActiveLit
 // if (gameSessionLogId) {
 //     $.ajax({

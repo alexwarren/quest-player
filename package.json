@@ -2,13 +2,13 @@
   "name": "quest-player",
   "version": "0.1.0",
   "description": "",
-  "main": "main.js",
   "scripts": {
-    "start": "electron .",
-    "web": "webpack-dev-server",
+    "start": "npm run build && npm run build-electron && electron main.js",
+    "web": "npm run build && webpack-dev-server",
     "lint": "eslint './**/*.js'",
     "build-asl4": "gulp asl4",
-    "build": "gulp"
+    "build": "gulp",
+    "build-electron": "webpack --config ./electron-webpack.config.js"
   },
   "license": "MIT",
   "repository": {

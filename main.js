@@ -58,10 +58,10 @@ const init = function() {
     mainWindow.openFile = openFile;
 
     if (openFile) {
-        mainWindow.loadURL('file://' + __dirname + '/index.html');
+        mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
     }
     else {
-        mainWindow.loadURL('file://' + __dirname + '/start.html');
+        mainWindow.loadURL('file://' + __dirname + '/dist/start.html');
     }
     
     mainWindow.on('close', () => {
@@ -110,7 +110,7 @@ const fileOpen = function () {
     });
     if (!result) return;
     mainWindow.openFile = result[0];
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    mainWindow.loadURL('file://' + __dirname + '/dist/index.html');
 };
 
 ipcMain.on('file-open', fileOpen);
