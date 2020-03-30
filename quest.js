@@ -143,32 +143,17 @@ const onLoadWeb = function () {
     }
 };
 
+window.onLoadDesktop = function() {
+    // this is overridden in preload.js for the desktop version
+    return false;
+}
+
 window.gridApi = window.gridApi || {};
 window.gridApi.onLoad = function () {
-    if (window.process) {
-        // desktop Quest Player
-        onLoadDesktop();
-    }
-    else {
-        onLoadWeb(); 
+    var tryLoadDesktop = onLoadDesktop();
+    if (!tryLoadDesktop) {
+        onLoadWeb();
     }
 };
 
 window.launchFilename = launchFilename;
-
-// TODO: Game session logging for ActiveLit
-// if (gameSessionLogId) {
-//     $.ajax({
-//         url: apiRoot + "games/startsession/?gameId=" + $_GET["id"] + "&blobId=" + gameSessionLogId,
-//         success: function (result) {
-//             if (result) {
-//                 gameSessionLogData = result;
-//                 setUpSessionLog();
-//             }
-//         },
-//         type: "POST",
-//         xhrFields: {
-//             withCredentials: true
-//         }
-//     });
-// }

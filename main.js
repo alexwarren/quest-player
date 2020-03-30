@@ -45,8 +45,7 @@ const init = function() {
         width: lastWindowState.width, 
         height: lastWindowState.height,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
-            nodeIntegration: true   // TODO:  This a bad thing to enable, need to rewrite script in index.html to use preload.js
+            preload: path.join(__dirname, 'preload.js')
         }
         //icon: __dirname + '/quest.png'
     });

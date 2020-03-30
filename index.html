@@ -3,19 +3,6 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="lib/jquery-2.1.1.min.js"></script>
-    <script>
-        if (window.require) {
-            window.$ = window.jQuery = require(__dirname + "/lib/jquery-2.1.1.min.js");
-        
-            if (window.process) {
-                window.onLoadDesktop = function () {
-                    var remote = require('electron').remote;
-                    var openFile = remote.getCurrentWindow().openFile;
-                    launchFilename(openFile);
-                };
-            }
-        }
-    </script>
     <script src="lib/jquery-ui.min.js"></script>
     <script src="ui/jquery.jplayer.min.js"></script>
     <script src="ui/jquery.multi-open-accordion-1.5.3.js"></script>
