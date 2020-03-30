@@ -146,11 +146,11 @@ const onLoadWeb = function () {
 window.onLoadDesktop = function() {
     // this is overridden in preload.js for the desktop version
     return false;
-}
+};
 
 window.gridApi = window.gridApi || {};
 window.gridApi.onLoad = function () {
-    var tryLoadDesktop = onLoadDesktop();
+    const tryLoadDesktop = onLoadDesktop();
     if (!tryLoadDesktop) {
         onLoadWeb();
     }
