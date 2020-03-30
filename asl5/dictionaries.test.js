@@ -1,3 +1,5 @@
+'use strict';
+
 const dictionaries = require('./dictionaries');
 const state = require('./state');
 
