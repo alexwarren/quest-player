@@ -1,18 +1,5 @@
 'use strict';
 
-/* global panesVisible */
-/* global setBackground */
-/* global stopAudio */
-/* global setPanelContents */
-/* global setGameName */
-/* global updateStatus */
-/* global clearScreen */
-/* global requestNextTimerTick */
-/* global showMenu */
-/* global showQuestion */
-/* global beginWait */
-/* global updateList */
-/* global updateLocation */
 /* global quest */
 /* global addTextAndScroll */
 /* global playWav */
@@ -20,9 +7,6 @@
 /* global updateCompass */
 /* global uiHide */
 /* global uiShow */
-/* global setCompassDirections */
-/* global setInterfaceString */
-/* global scrollToEnd */
 
 // Globals are all in ui/player.js
 // TODO: Remove globals, move player.js stuff in here
@@ -88,41 +72,41 @@ const print = function (text, linebreak) {
 quest.ui = quest.ui || {};
 quest.ui.show = show;
 quest.ui.hide = hide;
-quest.ui.locationUpdated = updateLocation;
-quest.ui.updateList = updateList;
+quest.ui.locationUpdated = window.updateLocation;
+quest.ui.updateList = window.updateList;
 quest.ui.updateCompass = updateCompassDirections;
-quest.ui.beginWait = beginWait;
-quest.ui.showQuestion = showQuestion;
-quest.ui.showMenu = showMenu;
-quest.ui.requestNextTimerTick = requestNextTimerTick;
-quest.ui.clearScreen = clearScreen;
-quest.ui.updateStatus = updateStatus;
-quest.ui.setGameName = setGameName;
-quest.ui.setPanelContents = setPanelContents;
+quest.ui.beginWait = window.beginWait;
+quest.ui.showQuestion = window.showQuestion;
+quest.ui.showMenu = window.showMenu;
+quest.ui.requestNextTimerTick = window.requestNextTimerTick;
+quest.ui.clearScreen = window.clearScreen;
+quest.ui.updateStatus = window.updateStatus;
+quest.ui.setGameName = window.setGameName;
+quest.ui.setPanelContents = window.setPanelContents;
 quest.ui.playSound = playSound;
-quest.ui.stopSound = stopAudio;
-quest.ui.setBackground = setBackground;
-quest.ui.panesVisible = panesVisible;
+quest.ui.stopSound = window.stopAudio;
+quest.ui.setBackground = window.setBackground;
+quest.ui.panesVisible = window.panesVisible;
 quest.print = print;
 
 exports.show = show;
 exports.hide = hide;
-exports.locationUpdated = updateLocation;
-exports.updateList = updateList;
+exports.locationUpdated = window.updateLocation;
+exports.updateList = window.updateList;
 exports.updateCompass = updateCompassDirections;
-exports.beginWait = beginWait;
-exports.showQuestion = showQuestion;
-exports.showMenu = showMenu;
-exports.requestNextTimerTick = requestNextTimerTick;
-exports.clearScreen = clearScreen;
-exports.updateStatus = updateStatus;
-exports.setGameName = setGameName;
-exports.setPanelContents = setPanelContents;
+exports.beginWait = window.beginWait;
+exports.showQuestion = window.showQuestion;
+exports.showMenu = window.showMenu;
+exports.requestNextTimerTick = window.requestNextTimerTick;
+exports.clearScreen = window.clearScreen;
+exports.updateStatus = window.updateStatus;
+exports.setGameName = window.setGameName;
+exports.setPanelContents = window.setPanelContents;
 exports.playSound = playSound;
-exports.stopSound = stopAudio;
-exports.setBackground = setBackground;
-exports.panesVisible = panesVisible;
+exports.stopSound = window.stopAudio;
+exports.setBackground = window.setBackground;
+exports.panesVisible = window.panesVisible;
 exports.print = print;
-exports.setCompassDirections = setCompassDirections;
-exports.setInterfaceString = setInterfaceString;
-exports.scrollToEnd = scrollToEnd;
+exports.setCompassDirections = window.setCompassDirections;
+exports.setInterfaceString = window.setInterfaceString;
+exports.scrollToEnd = window.scrollToEnd;

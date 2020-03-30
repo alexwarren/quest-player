@@ -3,3 +3,4 @@ lib/*.js
 asl5/lib/*.js
 dist/
 ui/
+**/*.test.js
