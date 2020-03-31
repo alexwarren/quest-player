@@ -73,7 +73,7 @@ const launchV4 = function (url, resourceRoot, resumeData) {
     game.Initialise(onSuccess, onFailure);
 };
 
-const launchV6 = function (url) {
+const launchV5 = function (url) {
     $.get(url, (data) => {
         quest.sendCommand = asl5.sendCommand;
         asl5.load(data);
@@ -87,7 +87,7 @@ const launchFilename = function (filename) {
     if (!extMatch) return;
     const ext = extMatch[0];
     if (ext === '.aslx') {
-        launchV6(filename);
+        launchV5(filename);
     }
     else if (ext === '.asl' || ext === '.cas') {
         launchV4(filename);
@@ -113,7 +113,7 @@ const onLoadWeb = function () {
             
             if (result.ASLVersion >= 500) {
                 // TODO: Pass result.ResourceRoot
-                launchV6(result.PlayUrl);
+                launchV5(result.PlayUrl);
             }
             else {
                 launchV4(result.PlayUrl, result.ResourceRoot, resumeData);
