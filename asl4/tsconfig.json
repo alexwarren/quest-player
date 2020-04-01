@@ -3,7 +3,8 @@
         "noImplicitAny": true,
         "sourceMap": true,
         "removeComments": true,
-        "target": "es6"
+        "target": "es6",
+        "moduleResolution": "node"
     },
     "files": [
         "asl4.ts"
