@@ -1,8 +1,10 @@
 'use strict';
 
+const output = [];
+
 window.quest = window.quest || {};
 window.quest.print = (text) => {
-    console.log(text);
+    output.push(text);
 };
 window.quest.ui = {
     showMenu: () => {},
@@ -23,6 +25,8 @@ window.quest.ui = {
     requestNextTimerTick: () => {}
 };
 
+console.log = () => {};
+
 const asl4 = require('./asl4');
 const fs = require('fs');
 
@@ -36,11 +40,13 @@ const fileFetcher = function (filename, onSuccess, onFailure) {
     }
 };
 
-test('loads test.asl', async () => {
+test('loads test.asl', async (done) => {
     const game = asl4.createGame('examples/test.asl', null, null, fileFetcher, null, null);
-    const onSuccess = () => game.Begin();
+    const onSuccess = async () => {
+        await game.Begin();
+        expect(output).toMatchSnapshot();
+        done();
+    };
     const onFailure = () => {};
     await game.Initialise(onSuccess, onFailure);
-
-    // TODO: Capture output and compare against a snapshot
 });
