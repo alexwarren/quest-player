@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`loads test.aslx 1`] = `
+Array [
+  "Hello world 123, 456<br/>",
+  "Welcome<br/>",
+  "Test attributes...<br/>",
+  "game.testattr = Test attribute value<br/>",
+  "game.testattr2 = Test another attribute value<br/>",
+  "game.inheritedattr = An inherited attribute value<br/>",
+  "game.overrideattr = This is the overridden attribute value<br/>",
+  "game.overrideattr2 = This is another overridden attribute value<br/>",
+]
+`;

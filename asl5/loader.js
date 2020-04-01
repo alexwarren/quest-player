@@ -240,7 +240,7 @@ const load = function (data) {
     }
     
     state.finishedLoading();
-    state.dump();
+    window.dump = state.dump;
 };
 
 exports.load = load;

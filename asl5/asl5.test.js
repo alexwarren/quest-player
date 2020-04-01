@@ -3,8 +3,10 @@
 const asl5 = require('./asl5');
 const fs = require('fs');
 
+const output = [];
+
 window.addTextAndScroll = (text) => {
-    console.log(text);
+    output.push(text);
 };
 
 window.uiShow = () => {};
@@ -14,6 +16,5 @@ test('loads test.aslx', () => {
     const data = fs.readFileSync('examples/test.aslx', 'utf-8');
     asl5.load(data);
     asl5.begin();
-    
-    // TODO: Capture output and compare against a snapshot
+    expect(output).toMatchSnapshot();
 });
