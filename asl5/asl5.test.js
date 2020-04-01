@@ -10,7 +10,7 @@ window.addTextAndScroll = (text) => {
 window.uiShow = () => {};
 window.uiHide = () => {};
 
-test('just a test', () => {
+test('loads test.aslx', () => {
     const data = fs.readFileSync('examples/test.aslx', 'utf-8');
     asl5.load(data);
     asl5.begin();
