@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "noImplicitAny": true,
-        "sourceMap": true,
+        "inlineSourceMap": true,
         "removeComments": true,
         "target": "es6",
         "moduleResolution": "node"
