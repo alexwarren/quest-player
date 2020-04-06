@@ -2,7 +2,6 @@
 
 /* global $, quest, apiRoot, $_GET, onLoadDesktop */
 
-require('babel-polyfill');
 const asl5 = require('./asl5/asl5.js');
 
 window.quest = window.quest || {};
