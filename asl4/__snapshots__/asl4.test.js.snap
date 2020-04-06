@@ -5,5 +5,10 @@ Array [
   "<span style=\\"font-family:Arial;font-size:9pt\\">You are in </span><span style=\\"font-family:Arial;font-size:9pt\\"><span style=\\"color:red\\">room</span></span><span style=\\"font-family:Arial;font-size:9pt\\">.<br />There is </span><span style=\\"font-family:Arial;font-size:9pt\\"><b>thing</b></span><span style=\\"font-family:Arial;font-size:9pt\\">, a red </span><span style=\\"font-family:Arial;font-size:9pt\\"><b>book</b></span><span style=\\"font-family:Arial;font-size:9pt\\"> and a blue </span><span style=\\"font-family:Arial;font-size:9pt\\"><b>book</b></span><span style=\\"font-family:Arial;font-size:9pt\\"> here.</span>",
   "<span style=\\"font-family:Arial;font-size:9pt\\">You can go </span><span style=\\"font-family:Arial;font-size:9pt\\"><b>east</b></span><span style=\\"font-family:Arial;font-size:9pt\\">.</span>",
   "",
+  "<span style=\\"font-family:Arial;font-size:9pt\\">&gt; x book</span>",
+  "<span style=\\"font-family:Arial;font-size:9pt\\">- </span><span style=\\"font-family:Arial;font-size:9pt\\"><i>Please select which book you mean:</i></span>",
+  "<span style=\\"font-family:Arial;font-size:9pt\\">- the red book</span><br />",
+  "<span style=\\"font-family:Arial;font-size:9pt\\">Just an ordinary red book.</span>",
+  "",
 ]
 `;

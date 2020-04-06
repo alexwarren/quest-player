@@ -44,8 +44,14 @@ test('loads test.asl', async (done) => {
     const game = asl4.createGame('examples/test.asl', null, null, fileFetcher, null, null);
     const onSuccess = async () => {
         await game.Begin();
-        expect(output).toMatchSnapshot();
-        done();
+        game.SendCommand('x book');
+        setTimeout(() => {
+            game.SetMenuResponse('1');
+            setTimeout(() => {
+                expect(output).toMatchSnapshot();
+                done();
+            }, 1);
+        }, 1);
     };
     const onFailure = () => {};
     await game.Initialise(onSuccess, onFailure);
