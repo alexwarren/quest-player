@@ -1,13 +1,6 @@
 'use strict';
 
 const gulp = require('gulp');  
-const webpack = require('webpack-stream');
-
-gulp.task('webpack', () => {
-    return gulp.src('quest.js')
-        .pipe(webpack(require('./webpack.config.js')))
-        .pipe(gulp.dest('dist/'));
-});
 
 gulp.task('lib', () => {
     return gulp.src('lib/**/*')
