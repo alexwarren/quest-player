@@ -26,9 +26,11 @@ const begin = function () {
 };
 
 const sendCommand = function (command, elapsedTime, metadata) {
+    // (*** see SendCommand in WorldModel.cs ***)
+
     // TODO: Increment time
     // TODO: Check if command override mode is on
-    // TODO: Echo input for ASL <= 520
+    // TODO: Echo input for ASL < 520
     
     const metadataArg = state.newAttribute('stringdictionary');
     if (metadata) metadataArg.value = metadata;
@@ -42,7 +44,7 @@ const sendCommand = function (command, elapsedTime, metadata) {
         ui.scrollToEnd();
     }
     
-    // TODO: TryFinishTurn
+    // TODO: TryFinishTurn (for ASL < 580)
     // TODO: UpdateLists
     // TODO: Send next timer request
 };

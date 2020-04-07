@@ -407,10 +407,6 @@ const functions = {
         // TODO
         throw 'IsDouble not implemented';
     },
-    'GetInput': function () {
-        // TODO
-        throw 'GetInput not implemented';
-    },
     'GetFileURL': function () {
         // TODO
         throw 'GetFileURL not implemented';
