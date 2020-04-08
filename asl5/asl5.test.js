@@ -25,7 +25,8 @@ test('loads test.aslx', () => {
     asl5.sendCommand('hasstring');
     asl5.sendCommand('a');
     asl5.sendCommand('attrs');
+    asl5.sendCommand('input');
+    asl5.sendCommand('test some input for GetInput...');
     asl5.sendCommand('sw');
-    // TODO: Add test for "input" command, which calls GetInput - currently not implemented
     expect(output).toMatchSnapshot();
 });

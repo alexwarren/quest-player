@@ -6,11 +6,7 @@ const delegates = require('./delegates.js');
 
 const asyncFunctions = {
     'GetInput': function (args, complete) {
-        // TODO: Override input handler
-        
-        setTimeout(() => {
-            complete('test');
-        }, 200);
+        state.setCommandOverride(complete);
     },
     'DynamicTemplate': function (args, complete) {
         const name = getParameter(args[0], 'DynamicTemplate', 'string');

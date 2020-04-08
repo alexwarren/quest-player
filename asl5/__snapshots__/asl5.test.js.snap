@@ -52,6 +52,9 @@ Array [
   "compassdirections as boolean false<br/>",
   "abcdef<br/>",
   "name,elementtype,type,gamename,testattr,testattr2,overrideattr,compassdirections,overrideattr2,inheritedattr<br/>",
+  "Getting input...<br/>",
+  "test some input for GetInput...<br/>",
+  "Done<br/>",
   "Something else<br/>",
   "Done switch<br/>",
 ]

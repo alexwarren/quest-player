@@ -8,6 +8,7 @@ const templateLookup = {};
 let version;
 let loadFinishedActions = [];
 let loading = true;
+let commandOverride = null;
 
 const setVersion = function (value) {
     version = value;
@@ -339,6 +340,14 @@ const dump = function () {
     console.log(elements);
 };
 
+const setCommandOverride = function(fn) {
+    commandOverride = fn;
+};
+
+const getCommandOverride = function () {
+    return commandOverride;
+};
+
 exports.setVersion = setVersion;
 exports.minVersion = minVersion;
 exports.maxVersion = maxVersion;
@@ -373,3 +382,5 @@ exports.getAllChildren = getAllChildren;
 exports.contains = contains;
 exports.getUniqueId = getUniqueId;
 exports.dump = dump;
+exports.setCommandOverride = setCommandOverride;
+exports.getCommandOverride = getCommandOverride;
