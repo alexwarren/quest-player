@@ -340,12 +340,43 @@ const dump = function () {
     console.log(elements);
 };
 
-const setCommandOverride = function(fn) {
+const setCommandOverride = function (fn) {
     commandOverride = fn;
 };
 
 const getCommandOverride = function () {
     return commandOverride;
+};
+
+const callbacks = {};
+
+const pushCallback = function (type, callback, exception) {
+    if (callbacks[type]) {
+        throw exception;
+    }
+    callbacks[type] = callback;
+};
+
+const popCallback = function (type) {
+    if (!callbacks[type]) return null;
+    const result = callbacks[type];
+    callbacks[type] = null;
+    return result;
+};
+
+const setGetInputCallback = function (script, locals) {
+    pushCallback('getinput', {
+        script,
+        locals
+    }, 'Only one "get input" can be in progress at a time');
+    
+    setCommandOverride(result => {
+        const callback = popCallback('getinput');
+        scripts.executeScript(callback.script, {
+            ...callback.locals,
+            result
+        }, false);
+    });
 };
 
 exports.setVersion = setVersion;
@@ -384,3 +415,4 @@ exports.getUniqueId = getUniqueId;
 exports.dump = dump;
 exports.setCommandOverride = setCommandOverride;
 exports.getCommandOverride = getCommandOverride;
+exports.setGetInputCallback = setGetInputCallback;

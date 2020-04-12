@@ -1,6 +1,6 @@
 'use strict';
 
-const scripts = require('../scripts.js');
+const state = require('../state.js');
 
 module.exports = {
     create: function (line) {
@@ -12,12 +12,7 @@ module.exports = {
         };
     },
     execute: function (ctx) {
-        setTimeout(() => {
-            scripts.executeScript(ctx.parameters.script, {
-                ...ctx.locals,
-                result: 'test get input result'
-            }, false);
-        }, 500);
+        state.setGetInputCallback(ctx.parameters.script, ctx.locals);
         ctx.complete();
     }
 };

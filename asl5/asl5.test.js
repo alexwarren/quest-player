@@ -27,6 +27,8 @@ test('loads test.aslx', () => {
     asl5.sendCommand('attrs');
     asl5.sendCommand('input');
     asl5.sendCommand('test some input for GetInput...');
+    asl5.sendCommand('input2');
+    asl5.sendCommand('test some input for get input...');
     asl5.sendCommand('sw');
     expect(output).toMatchSnapshot();
 });

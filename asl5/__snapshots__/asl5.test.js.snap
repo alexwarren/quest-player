@@ -55,6 +55,11 @@ Array [
   "Getting input...<br/>",
   "test some input for GetInput...<br/>",
   "Done<br/>",
+  "Getting input via 'get input' script...<br/>",
+  "Callback set<br/>",
+  "Result: test some input for get input...<br/>",
+  "Somevar: 123<br/>",
+  "Callback finished<br/>",
   "Something else<br/>",
   "Done switch<br/>",
 ]
