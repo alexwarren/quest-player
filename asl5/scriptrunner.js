@@ -145,8 +145,6 @@ const evaluateExpressions = function (exprs, complete) {
     go();
 };
 
-let lastExpr = null;
-
 const evaluateNext = function () {
     const frame = callstack[callstack.length - 1];
     const expressionFrame = frame.expressionStack.pop();
@@ -154,132 +152,119 @@ const evaluateNext = function () {
         throw 'Expression has already been evaluated';
     }
     const tree = expressionFrame.tree;
-    if (expressionFrame.expr) lastExpr = expressionFrame.expr;
     let locals;
     
-    try {
-        switch (tree.type) {
-            case 'Literal':
-                expressionFrame.complete(tree.value);
-                break;
-            case 'Identifier':
-                locals = getParentFrame().locals;
-                if (tree.name in locals) {
-                    expressionFrame.complete(locals[tree.name]);   
-                }
-                else if (state.isElement(tree.name)) {
-                    expressionFrame.complete(state.getElement(tree.name));
-                }
-                else {
-                    throw 'Unknown variable ' + tree.name;
-                }
-                
-                break;
-            case 'ThisExpression':
-                locals = getParentFrame().locals;
-                if ('this' in locals) {
-                    expressionFrame.complete(locals['this']);
-                }
-                else {
-                    throw 'Unknown variable this';
-                }
-                break;
-            case 'BinaryExpression':
-                frame.expressionStack.push({
-                    tree: tree.left,
-                    complete: function (leftResult) {
-                        frame.expressionStack.push({
-                            tree: tree.right,
-                            complete: function (rightResult) {
-                                expressionFrame.complete(binaryOperator(tree.operator, leftResult, rightResult));
-                            }
-                        });
-                        evaluateNext();
-                    }
-                });
-                evaluateNext();
-                break;
-            case 'CallExpression': {
-                if (tree.callee.type !== 'Identifier') {
-                    throw 'Function name must be an identifier';
-                }
-                let index = 0;
-                const args = [];
-                const evaluateArgs = function () {
-                    if (index === tree.arguments.length) {
-                        callFunction(tree.callee.name, args, (result) => {
-                            expressionFrame.complete(result);
-                        });
-                        return;
-                    }
-                    frame.expressionStack.push({
-                        tree: tree.arguments[index],
-                        complete: function (result) {
-                            index++;
-                            args.push(result);
-                            evaluateArgs();
-                        }
-                    });
-                    evaluateNext();
-                };
-                evaluateArgs();
-                
-                break;
+    switch (tree.type) {
+        case 'Literal':
+            expressionFrame.complete(tree.value);
+            break;
+        case 'Identifier':
+            locals = getParentFrame().locals;
+            if (tree.name in locals) {
+                expressionFrame.complete(locals[tree.name]);   
             }
-            case 'MemberExpression':
-                if (tree.computed) {
-                    throw 'Unsupported expression';
+            else if (state.isElement(tree.name)) {
+                expressionFrame.complete(state.getElement(tree.name));
+            }
+            else {
+                throw 'Unknown variable ' + tree.name;
+            }
+            
+            break;
+        case 'ThisExpression':
+            locals = getParentFrame().locals;
+            if ('this' in locals) {
+                expressionFrame.complete(locals['this']);
+            }
+            else {
+                throw 'Unknown variable this';
+            }
+            break;
+        case 'BinaryExpression':
+            frame.expressionStack.push({
+                tree: tree.left,
+                complete: function (leftResult) {
+                    frame.expressionStack.push({
+                        tree: tree.right,
+                        complete: function (rightResult) {
+                            expressionFrame.complete(binaryOperator(tree.operator, leftResult, rightResult));
+                        }
+                    });
+                    evaluateNext();
                 }
-                if (tree.property.type !== 'Identifier') {
-                    throw 'Attribute name must be an identifier';
+            });
+            evaluateNext();
+            break;
+        case 'CallExpression': {
+            if (tree.callee.type !== 'Identifier') {
+                throw 'Function name must be an identifier';
+            }
+            let index = 0;
+            const args = [];
+            const evaluateArgs = function () {
+                if (index === tree.arguments.length) {
+                    callFunction(tree.callee.name, args, (result) => {
+                        expressionFrame.complete(result);
+                    });
+                    return;
                 }
                 frame.expressionStack.push({
-                    tree: tree.object,
+                    tree: tree.arguments[index],
                     complete: function (result) {
-                        if (result.type !== 'element') {
-                            throw 'Expected element, got ' + result;
-                        }
-                        expressionFrame.complete(state.get(state.getElement(result.name), tree.property.name));
+                        index++;
+                        args.push(result);
+                        evaluateArgs();
                     }
                 });
                 evaluateNext();
-                break;
-            case 'UnaryExpression':
-                if (tree.operator === 'not') {
-                    frame.expressionStack.push({
-                        tree: tree.argument,
-                        complete: function (result) {
-                            expressionFrame.complete(!result);
-                        }
-                    });
-                    evaluateNext();
-                }
-                else if (tree.operator === '-') {
-                    frame.expressionStack.push({
-                        tree: tree.argument,
-                        complete: function (result) {
-                            expressionFrame.complete(-result);
-                        }
-                    });
-                    evaluateNext();
-                }
-                else {
-                    throw 'Unrecognised operator: ' + tree.operator;
-                }
-                break;
-            default:
-                throw 'Unknown expression tree type: ' + tree.type;
+            };
+            evaluateArgs();
+            
+            break;
         }
-    }
-    catch (e) {
-        if (lastExpr) {
-            console.log('Error evaluating expression: ' + lastExpr);
-            console.log(e);
-            ui.print('<span style="color:red"><b>Script error:</b> ' + e + '</span>');
-            lastExpr = null;
-        }
-        
-        throw e;
+        case 'MemberExpression':
+            if (tree.computed) {
+                throw 'Unsupported expression';
+            }
+            if (tree.property.type !== 'Identifier') {
+                throw 'Attribute name must be an identifier';
+            }
+            frame.expressionStack.push({
+                tree: tree.object,
+                complete: function (result) {
+                    if (result.type !== 'element') {
+                        throw 'Expected element, got ' + result;
+                    }
+                    expressionFrame.complete(state.get(state.getElement(result.name), tree.property.name));
+                }
+            });
+            evaluateNext();
+            break;
+        case 'UnaryExpression':
+            if (tree.operator === 'not') {
+                frame.expressionStack.push({
+                    tree: tree.argument,
+                    complete: function (result) {
+                        expressionFrame.complete(!result);
+                    }
+                });
+                evaluateNext();
+            }
+            else if (tree.operator === '-') {
+                frame.expressionStack.push({
+                    tree: tree.argument,
+                    complete: function (result) {
+                        expressionFrame.complete(-result);
+                    }
+                });
+                evaluateNext();
+            }
+            else {
+                throw 'Unrecognised operator: ' + tree.operator;
+            }
+            break;
+        default:
+            throw 'Unknown expression tree type: ' + tree.type;
     }
 };
 
