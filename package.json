@@ -5,7 +5,7 @@
   "scripts": {
     "start": "npm run build && npm run build-electron && electron main.js",
     "web": "npm run build && webpack-dev-server",
-    "lint": "eslint './**/*.js'",
+    "lint": "eslint \"./**/*.js\"",
     "build-asl4": "tsc --project ./asl4/tsconfig.json",
     "build": "gulp",
     "build-electron": "webpack --config ./electron-webpack.config.js",
