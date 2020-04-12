@@ -100,6 +100,14 @@
             msg (GetInput())
             msg ("Done")
         }
+        else if (command = "input2") {
+            msg ("Getting input via 'get input' script...")
+            get input {
+                msg ("Result: " + result)
+                msg ("Callback finished")
+            }
+            msg ("Callback set")
+        }
         else if (Left(command, 2) = "sw") {
             sw (Mid(command, 3))
         }

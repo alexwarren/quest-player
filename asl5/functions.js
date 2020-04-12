@@ -6,6 +6,7 @@ const delegates = require('./delegates.js');
 
 const asyncFunctions = {
     'GetInput': function (args, complete) {
+        // NOTE: Quest disallows this for games with version >= 540
         state.setCommandOverride(complete);
     },
     'DynamicTemplate': function (args, complete) {
