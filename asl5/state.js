@@ -58,7 +58,7 @@ const getElement = function (elementName) {
     if (!element) {
         throw 'No element named ' + elementName;
     }
-    return element;	
+    return element;
 };
 
 const tryGetElement = function (elementName) {
@@ -130,7 +130,7 @@ const addInheritedType = function (element, typeName) {
 const hasAttribute = function (element, attribute) {
     if (attribute in element.attributes) return true;
 
-    // Types haven't been initialised yet if we're still loading 
+    // Types haven't been initialised yet if we're still loading
     if (loading) return false;
     
     for (const idx in element.inheritedTypes) {

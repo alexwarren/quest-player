@@ -101,7 +101,7 @@ const getParentFrameIndex = function () {
     let frameIndex = callstack.length - 1;
     while (frameIndex >= 0) {
         if (callstack[frameIndex].locals) return frameIndex;
-        frameIndex--; 
+        frameIndex--;
     }
     throw 'Could not find parent frame';
 };
@@ -161,7 +161,7 @@ const evaluateNext = function () {
         case 'Identifier':
             locals = getParentFrame().locals;
             if (tree.name in locals) {
-                expressionFrame.complete(locals[tree.name]);   
+                expressionFrame.complete(locals[tree.name]);
             }
             else if (state.isElement(tree.name)) {
                 expressionFrame.complete(state.getElement(tree.name));

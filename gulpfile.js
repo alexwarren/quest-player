@@ -1,6 +1,6 @@
 'use strict';
 
-const gulp = require('gulp');  
+const gulp = require('gulp');
 
 gulp.task('lib', () => {
     return gulp.src('lib/**/*')

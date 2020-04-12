@@ -35,14 +35,14 @@ const init = function() {
         lastWindowState = {
             width: 1200,
             height: 600,
-            maximized: false 
+            maximized: false
         };
     }
     
     mainWindow = new BrowserWindow({
         x: lastWindowState.x,
         y: lastWindowState.y,
-        width: lastWindowState.width, 
+        width: lastWindowState.width,
         height: lastWindowState.height,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
@@ -64,7 +64,7 @@ const init = function() {
     }
     
     mainWindow.on('close', () => {
-        const bounds = mainWindow.getBounds(); 
+        const bounds = mainWindow.getBounds();
         storage.set('lastWindowState', {
             x: bounds.x,
             y: bounds.y,

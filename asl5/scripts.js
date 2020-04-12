@@ -74,7 +74,7 @@ const getSetScript = function (line) {
             elementExpr: elementExpr === null ? null : expressions.parseExpression(elementExpr),
             variable: variable,
             value: value
-        } 
+        }
     };
 };
 

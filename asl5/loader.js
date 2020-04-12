@@ -16,15 +16,15 @@ const getXmlAttribute = function (node, attributeName) {
 
 const attributeLoaders = {
     'string': function (node, element, attributeName) {
-        const attributeValue = node.textContent; 
+        const attributeValue = node.textContent;
         state.set(element, attributeName, attributeValue);
     },
     'int': function (node, element, attributeName) {
-        const attributeValue = node.textContent; 
+        const attributeValue = node.textContent;
         state.set(element, attributeName, parseInt(attributeValue, 10));
     },
     'double': function (node, element, attributeName) {
-        const attributeValue = node.textContent; 
+        const attributeValue = node.textContent;
         state.set(element, attributeName, parseFloat(attributeValue));
     },
     'stringlist': function (node, element, attributeName) {

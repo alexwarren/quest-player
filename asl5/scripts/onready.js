@@ -15,7 +15,7 @@ module.exports = {
         // TODO: Implement callbacks as per WorldModel.AddOnReady.
         // i.e. if there are any Menu/Wait/Question/GetInput/callbacks outstanding,
         // add ctx.parameters.script to the list of onready callbacks. If there
-        // are not, then just run the script immediately. 
+        // are not, then just run the script immediately.
         scriptrunner.getCallstack().push({
             script: ctx.parameters.script,
             index: 0

@@ -60,7 +60,7 @@ module.exports = {
         };
     },
     execute: function (ctx) {
-        scriptrunner.evaluateExpression(ctx.parameters.expression, (result) => {            
+        scriptrunner.evaluateExpression(ctx.parameters.expression, (result) => {
             let index = 0;
             const evaluateCase = function () {
                 scriptrunner.evaluateExpression(ctx.parameters.cases[index].expr, (caseResult) => {

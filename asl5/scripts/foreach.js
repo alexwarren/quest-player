@@ -26,7 +26,7 @@ module.exports = {
         // TODO: "return" breaks loop
         // TODO: Handle types other than stringlist
         scriptrunner.evaluateExpression(ctx.parameters.list, (listResult) => {
-            if (!listResult.type || 
+            if (!listResult.type ||
                 (listResult.type !== 'stringlist' &&
                 listResult.type !== 'objectlist' &&
                 listResult.type !== 'stringdictionary' &&

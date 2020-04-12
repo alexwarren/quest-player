@@ -5,7 +5,7 @@ const ui = require('../ui.js');
 
 module.exports = {
     parameters: [2],
-    execute: function (ctx) {               
+    execute: function (ctx) {
         scriptrunner.evaluateExpression(ctx.parameters[1], (data) => {
             const request = ctx.parameters[0].expr;
 
@@ -96,7 +96,7 @@ module.exports = {
                 case 'Log':
                     // TODO
                     console.log('Unhandled request type ' + request);
-                    break;                
+                    break;
                 case 'Speak':
                     // Do nothing
                     break;

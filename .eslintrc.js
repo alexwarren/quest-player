@@ -36,6 +36,12 @@ module.exports = {
         "strict": [
             "error",
             "global"
+        ],
+        "no-trailing-spaces": [
+            "error",
+            {
+                "skipBlankLines": true
+            }
         ]
     }
 };
