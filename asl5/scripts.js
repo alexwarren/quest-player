@@ -3,6 +3,7 @@
 const expressions = require('./expressions.js');
 const scriptParser = require('./scriptparser.js');
 const scriptRunner = require('./scriptrunner.js');
+const state = require('./state.js');
 
 const commands = {
     '=': require('./scripts/set'),
@@ -81,11 +82,11 @@ const getFunctionCallScript = function (line) {
     
     let paramExpressions, procName, paramScript = null;
     
-    const param = scriptParser.getParameterInternal(line, '(', ')');        
+    const param = scriptParser.getParameterInternal(line, '(', ')');
     
     if (param && param.after) {
         // Handle functions of the form
-        //    SomeFunction (parameter) { script }            
+        //    SomeFunction (parameter) { script }
         paramScript = parseScript(param.after);
     }
     
@@ -103,6 +104,10 @@ const getFunctionCallScript = function (line) {
     return {
         command: {
             execute: function (ctx) {
+                if (!state.functionExists(procName)) {
+                    throw 'Unrecognised function ' + procName;
+                }
+
                 const args = [];
                 let index = 0;
                 const evaluateArgs = function () {

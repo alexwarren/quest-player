@@ -71,23 +71,30 @@ const executeNext = function () {
     
     const script = frame.script[frame.index++];
     
-    script.command.execute({
-        parameters: script.parameters,
-        locals: parentFrame.locals,
-        onReturn: function (result) {
-            parentFrame.finished = true;
-            popCallstack();
-            parentFrame.onReturn(result);
-        },
-        complete: function () {
-            if (isRunning) {
-                isReady = true;
-                return;
+    try {
+        script.command.execute({
+            parameters: script.parameters,
+            locals: parentFrame.locals,
+            onReturn: function (result) {
+                parentFrame.finished = true;
+                popCallstack();
+                parentFrame.onReturn(result);
+            },
+            complete: function () {
+                if (isRunning) {
+                    isReady = true;
+                    return;
+                }
+    
+                continueRunningScripts();
             }
-
-            continueRunningScripts();
-        }
-    });
+        });
+    }
+    catch (e) {
+        console.log('Error running script: ' + e);
+        ui.print('<span style="color:red"><b>Script error:</b> ' + e + '</span>');
+        throw e;
+    }
 };
 
 const getParentFrameIndex = function () {
