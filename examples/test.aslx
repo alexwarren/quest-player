@@ -102,8 +102,10 @@
         }
         else if (command = "input2") {
             msg ("Getting input via 'get input' script...")
+            somevar = 123
             get input {
                 msg ("Result: " + result)
+                msg ("Somevar: " + somevar)
                 msg ("Callback finished")
             }
             msg ("Callback set")

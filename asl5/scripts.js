@@ -12,6 +12,7 @@ const commands = {
     'do': require('./scripts/do'),
     'for': require('./scripts/for'),
     'foreach': require('./scripts/foreach'),
+    'get input': require('./scripts/getinput'),
     'if': require('./scripts/if'),
     'invoke': require('./scripts/invoke'),
     'JS.': require('./scripts/js'),
