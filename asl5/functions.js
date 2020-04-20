@@ -9,6 +9,12 @@ const asyncFunctions = {
         // NOTE: Quest disallows this for games with version >= 540
         state.setCommandOverride(complete);
     },
+    'Ask': function (args, complete) {
+        // NOTE: Quest disallows this for games with version >= 540
+        const ui = require('./ui.js');
+        ui.showQuestion(args[0]);
+        state.setShowQuestionCallback(complete);
+    },
     'DynamicTemplate': function (args, complete) {
         const name = getParameter(args[0], 'DynamicTemplate', 'string');
         const element = state.tryGetElement(name);
@@ -415,10 +421,6 @@ const functions = {
     'GetUniqueElementName': function () {
         // TODO
         throw 'GetUniqueElementName not implemented';
-    },
-    'Ask': function () {
-        // TODO
-        throw 'Ask not implemented';
     },
     'GetRandomInt': function () {
         // TODO

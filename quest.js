@@ -76,6 +76,7 @@ const launchV5 = function (url) {
     $.get(url, (data) => {
         quest.sendCommand = asl5.sendCommand;
         quest.endWait = asl5.endWait;
+        quest.setQuestionResponse = asl5.setQuestionResponse;
         asl5.load(data);
         asl5.begin();
     });

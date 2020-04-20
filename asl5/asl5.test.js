@@ -6,10 +6,17 @@ window.addTextAndScroll = (text) => {
     output.push(text);
 };
 
+window.showQuestion = (text) => {
+    output.push('~~QUESTION: ' + text);
+};
+
+window.beginWait = () => {
+    output.push('~~WAIT');
+};
+
 window.uiShow = () => {};
 window.uiHide = () => {};
 window.scrollToEnd = () => {};
-window.beginWait = () => {};
 
 const asl5 = require('./asl5');
 const fs = require('fs');
@@ -36,5 +43,9 @@ test('loads test.aslx', () => {
     asl5.sendCommand('blah');
     asl5.sendCommand('wait2');
     asl5.endWait();
+    asl5.sendCommand('ask');
+    asl5.setQuestionResponse('yes');
+    asl5.setQuestionResponse('no');
+    asl5.sendCommand('blah');
     expect(output).toMatchSnapshot();
 });

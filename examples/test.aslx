@@ -132,6 +132,20 @@
                 msg ("On ready after wait")
             }
         }
+        else if (command = "ask") {
+            if (Ask("Some question")) {
+                msg ("Response 1: yes")
+            }
+            else {
+                msg ("Response 1: no")
+            }
+            if (Ask("Some other question")) {
+                msg ("Response 2: yes")
+            }
+            else {
+                msg ("Response 2: no")
+            }
+        }
         else {
             msg (command)
         }

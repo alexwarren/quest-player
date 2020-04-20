@@ -65,11 +65,18 @@ Array [
   "Something else<br/>",
   "Done switch<br/>",
   "Start wait<br/>",
+  "~~WAIT",
   "Done wait<br/>",
   "blah<br/>",
   "Start wait via script<br/>",
+  "~~WAIT",
   "Wait active<br/>",
   "Done wait via script<br/>",
   "On ready after wait<br/>",
+  "~~QUESTION: Some question",
+  "Response 1: yes<br/>",
+  "~~QUESTION: Some other question",
+  "Response 2: no<br/>",
+  "blah<br/>",
 ]
 `;

@@ -66,7 +66,13 @@ const endWait = function () {
     callback();
 };
 
+const setQuestionResponse = function (response) {
+    const callback = state.flushShowQuestionCallback();
+    callback(response === 'yes');
+};
+
 exports.begin = begin;
 exports.sendCommand = sendCommand;
 exports.load = load;
 exports.endWait = endWait;
+exports.setQuestionResponse = setQuestionResponse;

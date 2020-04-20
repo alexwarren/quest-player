@@ -428,6 +428,18 @@ const flushEndWaitCallback = function () {
     return result;
 };
 
+let showQuestionCallback = null;
+
+const setShowQuestionCallback = function (callback) {
+    showQuestionCallback = callback;
+};
+
+const flushShowQuestionCallback = function () {
+    const result = showQuestionCallback;
+    showQuestionCallback = null;
+    return result;
+};
+
 exports.setVersion = setVersion;
 exports.minVersion = minVersion;
 exports.maxVersion = maxVersion;
@@ -471,3 +483,5 @@ exports.addOnReadyCallback = addOnReadyCallback;
 exports.flushOnReadyCallbacks = flushOnReadyCallbacks;
 exports.setEndWaitCallback = setEndWaitCallback;
 exports.flushEndWaitCallback = flushEndWaitCallback;
+exports.setShowQuestionCallback = setShowQuestionCallback;
+exports.flushShowQuestionCallback = flushShowQuestionCallback;
