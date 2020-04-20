@@ -381,6 +381,22 @@ const setGetInputCallback = function (script, locals) {
     });
 };
 
+const setWaitCallback = function (script, locals) {
+    pushCallback('wait', {
+        script,
+        locals
+    }, 'Only one "wait" can be in progress at a time');
+    
+    setEndWaitCallback(() => {
+        const callback = popCallback('wait');
+        const gameRunner = require('./gamerunner');
+        gameRunner.runCallbackAndFinishTurn(callback.script, callback.locals);
+    });
+
+    const ui = require('./ui');
+    ui.beginWait();
+};
+
 const anyOutstandingCallbacks = function () {
     return callbacks['menu'] || callbacks['wait'] || callbacks['question'] || callbacks['getinput'];
 };
@@ -450,6 +466,7 @@ exports.setCommandOverride = setCommandOverride;
 exports.getCommandOverride = getCommandOverride;
 exports.setGetInputCallback = setGetInputCallback;
 exports.anyOutstandingCallbacks = anyOutstandingCallbacks;
+exports.setWaitCallback = setWaitCallback;
 exports.addOnReadyCallback = addOnReadyCallback;
 exports.flushOnReadyCallbacks = flushOnReadyCallbacks;
 exports.setEndWaitCallback = setEndWaitCallback;

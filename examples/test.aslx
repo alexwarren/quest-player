@@ -122,6 +122,16 @@
             request (Wait, "")
             msg ("Done wait")
         }
+        else if (command = "wait2") {
+            msg ("Start wait via script")
+            wait {
+                msg ("Done wait via script")
+            }
+            msg ("Wait active")
+            on ready {
+                msg ("On ready after wait")
+            }
+        }
         else {
             msg (command)
         }

@@ -15,9 +15,13 @@ window.beginWait = () => { doBeginWait(); };
 const asl5 = require('./asl5');
 const fs = require('fs');
 
-doBeginWait = asl5.endWait;
+doBeginWait = () => {
+    setTimeout(() => {
+        asl5.endWait();
+    }, 1);
+};
 
-test('loads test.aslx', () => {
+test('loads test.aslx', async (done) => {
     const data = fs.readFileSync('examples/test.aslx', 'utf-8');
     asl5.load(data);
     asl5.begin();
@@ -35,5 +39,12 @@ test('loads test.aslx', () => {
     asl5.sendCommand('test some input for get input...');
     asl5.sendCommand('sw');
     asl5.sendCommand('wait');
-    expect(output).toMatchSnapshot();
+    setTimeout(() => {
+        asl5.sendCommand('blah');
+        asl5.sendCommand('wait2');
+        setTimeout(() => {
+            expect(output).toMatchSnapshot();
+            done();
+        }, 2);
+    }, 2);
 });

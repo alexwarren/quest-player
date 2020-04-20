@@ -66,5 +66,10 @@ Array [
   "Done switch<br/>",
   "Start wait<br/>",
   "Done wait<br/>",
+  "blah<br/>",
+  "Start wait via script<br/>",
+  "Wait active<br/>",
+  "Done wait via script<br/>",
+  "On ready after wait<br/>",
 ]
 `;

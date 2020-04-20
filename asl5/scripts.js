@@ -24,7 +24,8 @@ const commands = {
     'rundelegate': require('./scripts/rundelegate'),
     'set': require('./scripts/setfield'),
     'start transaction': require('./scripts/starttransaction'),
-    'switch': require('./scripts/switch')
+    'switch': require('./scripts/switch'),
+    'wait': require('./scripts/wait')
 };
 
 const getSetScript = function (line) {
