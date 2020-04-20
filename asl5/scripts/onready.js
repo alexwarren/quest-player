@@ -1,6 +1,6 @@
 'use strict';
 
-const scriptrunner = require('../scriptrunner.js');
+const state = require('../state.js');
 
 module.exports = {
     create: function (line) {
@@ -12,14 +12,7 @@ module.exports = {
         };
     },
     execute: function (ctx) {
-        // TODO: Implement callbacks as per WorldModel.AddOnReady.
-        // i.e. if there are any Menu/Wait/Question/GetInput/callbacks outstanding,
-        // add ctx.parameters.script to the list of onready callbacks. If there
-        // are not, then just run the script immediately.
-        scriptrunner.getCallstack().push({
-            script: ctx.parameters.script,
-            index: 0
-        });
+        state.addOnReadyCallback(ctx.parameters.script, ctx.locals);
         ctx.complete();
     }
 };

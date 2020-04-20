@@ -60,6 +60,8 @@ Array [
   "Result: test some input for get input...<br/>",
   "Somevar: 123<br/>",
   "Callback finished<br/>",
+  "On ready<br/>",
+  "Somevar: 123<br/>",
   "Something else<br/>",
   "Done switch<br/>",
 ]

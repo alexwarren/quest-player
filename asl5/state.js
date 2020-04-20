@@ -349,6 +349,7 @@ const getCommandOverride = function () {
 };
 
 const callbacks = {};
+let onReadyCallbacks = [];
 
 const pushCallback = function (type, callback, exception) {
     if (callbacks[type]) {
@@ -372,11 +373,31 @@ const setGetInputCallback = function (script, locals) {
     
     setCommandOverride(result => {
         const callback = popCallback('getinput');
-        scripts.executeScript(callback.script, {
+        const gameRunner = require('./gamerunner');
+        gameRunner.runCallbackAndFinishTurn(callback.script, {
             ...callback.locals,
             result
-        }, false);
+        });
     });
+};
+
+const anyOutstandingCallbacks = function () {
+    return callbacks['menu'] || callbacks['wait'] || callbacks['question'] || callbacks['getinput'];
+};
+
+const addOnReadyCallback = function (script, locals) {
+    if (!anyOutstandingCallbacks()) {
+        scripts.executeScript(script, locals, true);
+    }
+    else {
+        onReadyCallbacks.push({script, locals});
+    }
+};
+
+const flushOnReadyCallbacks = function () {
+    const currentList = onReadyCallbacks;
+    onReadyCallbacks = [];
+    return currentList;
 };
 
 exports.setVersion = setVersion;
@@ -416,3 +437,6 @@ exports.dump = dump;
 exports.setCommandOverride = setCommandOverride;
 exports.getCommandOverride = getCommandOverride;
 exports.setGetInputCallback = setGetInputCallback;
+exports.anyOutstandingCallbacks = anyOutstandingCallbacks;
+exports.addOnReadyCallback = addOnReadyCallback;
+exports.flushOnReadyCallbacks = flushOnReadyCallbacks;

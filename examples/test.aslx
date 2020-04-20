@@ -109,6 +109,10 @@
                 msg ("Callback finished")
             }
             msg ("Callback set")
+            on ready {
+                msg ("On ready")
+                msg ("Somevar: " + somevar)
+            }
         }
         else if (Left(command, 2) = "sw") {
             sw (Mid(command, 3))
