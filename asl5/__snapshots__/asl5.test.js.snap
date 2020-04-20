@@ -64,5 +64,7 @@ Array [
   "Somevar: 123<br/>",
   "Something else<br/>",
   "Done switch<br/>",
+  "Start wait<br/>",
+  "Done wait<br/>",
 ]
 `;

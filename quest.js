@@ -75,6 +75,7 @@ const launchV4 = function (url, resourceRoot, resumeData) {
 const launchV5 = function (url) {
     $.get(url, (data) => {
         quest.sendCommand = asl5.sendCommand;
+        quest.endWait = asl5.endWait;
         asl5.load(data);
         asl5.begin();
     });

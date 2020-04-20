@@ -1,6 +1,7 @@
 'use strict';
 
 const scriptrunner = require('../scriptrunner.js');
+const state = require('../state.js');
 const ui = require('../ui.js');
 
 module.exports = {
@@ -8,6 +9,7 @@ module.exports = {
     execute: function (ctx) {
         scriptrunner.evaluateExpression(ctx.parameters[1], (data) => {
             const request = ctx.parameters[0].expr;
+            let completeContext = true;
 
             // Any changes here should also be reflected in CoreEditorScriptsOutput.aslx (validvalues for "request" command)
             // and also in the documentation https://github.com/textadventures/quest/blob/gh-pages/scripts/request.md
@@ -78,8 +80,10 @@ module.exports = {
                     console.log('Unhandled request type ' + request);
                     break;
                 case 'Wait':
-                    // TODO
-                    console.log('Unhandled request type ' + request);
+                    // NOTE: Quest disallows this for games with version >= 540
+                    state.setEndWaitCallback(ctx.complete);
+                    ui.beginWait();
+                    completeContext = false;
                     break;
                 case 'SetInterfaceString': {
                     const args = data.split('=');
@@ -104,7 +108,9 @@ module.exports = {
                     throw 'Unhandled request type ' + request;
             }
             
-            ctx.complete();
+            if (completeContext) {
+                ctx.complete();
+            }
         });
     }
 };

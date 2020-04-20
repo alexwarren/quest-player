@@ -400,6 +400,18 @@ const flushOnReadyCallbacks = function () {
     return currentList;
 };
 
+let endWaitCallback = null;
+
+const setEndWaitCallback = function (callback) {
+    endWaitCallback = callback;
+};
+
+const flushEndWaitCallback = function () {
+    const result = endWaitCallback;
+    endWaitCallback = null;
+    return result;
+};
+
 exports.setVersion = setVersion;
 exports.minVersion = minVersion;
 exports.maxVersion = maxVersion;
@@ -440,3 +452,5 @@ exports.setGetInputCallback = setGetInputCallback;
 exports.anyOutstandingCallbacks = anyOutstandingCallbacks;
 exports.addOnReadyCallback = addOnReadyCallback;
 exports.flushOnReadyCallbacks = flushOnReadyCallbacks;
+exports.setEndWaitCallback = setEndWaitCallback;
+exports.flushEndWaitCallback = flushEndWaitCallback;

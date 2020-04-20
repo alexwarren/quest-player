@@ -61,6 +61,12 @@ const load = function (data) {
     loader.load(data);
 };
 
+const endWait = function () {
+    const callback = state.flushEndWaitCallback();
+    callback();
+};
+
 exports.begin = begin;
 exports.sendCommand = sendCommand;
 exports.load = load;
+exports.endWait = endWait;

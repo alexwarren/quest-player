@@ -117,6 +117,11 @@
         else if (Left(command, 2) = "sw") {
             sw (Mid(command, 3))
         }
+        else if (command = "wait") {
+            msg ("Start wait")
+            request (Wait, "")
+            msg ("Done wait")
+        }
         else {
             msg (command)
         }
